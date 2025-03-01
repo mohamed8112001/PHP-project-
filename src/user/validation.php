@@ -15,7 +15,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $errors = [];
 
-    // التحقق من الحقول
     if (empty($name)) {
         $errors[] = 'Name is required';
     } else {
@@ -81,7 +80,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     } else {
         $blogic = new User();
-        $password_hashed = password_hash($password, PASSWORD_DEFAULT); // تشفير كلمة المرور
+        $password_hashed = password_hash($password, PASSWORD_DEFAULT); 
         $blogic->insertCustomer($name, $email, $password_hashed, $profile_picture, $room_no);
         echo "<h3>Customer added successfully!</h3>";
     }
