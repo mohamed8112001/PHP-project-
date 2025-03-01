@@ -55,7 +55,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $ext = htmlspecialchars(trim($ext));
     }
 
-    // معالجة الصورة
     if (isset($_FILES['Profile_Picture']) && $_FILES['Profile_Picture']['error'] == UPLOAD_ERR_OK) {
         $file_tmp = $_FILES['Profile_Picture']['tmp_name'];
         $file_name = basename($_FILES['Profile_Picture']['name']);
