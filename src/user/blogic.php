@@ -36,8 +36,16 @@ class User extends Database{
     //         return "error " . $e->getMessage();
     //     }
     // }
+    // public function update($tablename,$data,$condition)
+    // {
+        
+    // }
 
-    function insertCustomer($name,$email,$password,$Profile_Picture,$room_no)
+        public function updateUser()
+        {
+
+        }
+    public function insertCustomer($name,$email,$password,$Profile_Picture,$room_no)
 {
 	$password_hash = password_hash($password, PASSWORD_DEFAULT);
 	// $values=array($name, $email, $password_hash, $ext, $role, $room_id, $pic_path);

@@ -62,5 +62,38 @@ class Database {
             return false;
         }
     }
+
+    public function update($table, $data, $where) {
+        try {
+            // بناء استعلام التحديث بشكل ديناميكي
+            $fields = [];
+            $values = [];
+    
+            foreach ($data as $column => $value) {
+                $fields[] = "$column = ?";
+                $values[] = $value;
+            }
+    
+            $setClause = implode(', ', $fields);
+    
+            // إضافة شروط WHERE لمنع التحديث العشوائي
+            $whereClause = [];
+            foreach ($where as $column => $value) {
+                $whereClause[] = "$column = ?";
+                $values[] = $value;
+            }
+    
+            $whereClauseString = implode(' AND ', $whereClause);
+    
+            // تجهيز الاستعلام النهائي
+            $sql = "UPDATE $table SET $setClause WHERE $whereClauseString";
+            $stmt = $this->pdo->prepare($sql);
+    
+            // تنفيذ الاستعلام
+            return $stmt->execute($values);
+        } catch (PDOException $e) {
+            die("خطأ في التحديث: " . $e->getMessage());
+        }
+    }
 }
 ?>  
