@@ -65,7 +65,6 @@ class Database {
 
     public function update($table, $data, $where) {
         try {
-            // بناء استعلام التحديث بشكل ديناميكي
             $fields = [];
             $values = [];
     
@@ -76,7 +75,6 @@ class Database {
     
             $setClause = implode(', ', $fields);
     
-            // إضافة شروط WHERE لمنع التحديث العشوائي
             $whereClause = [];
             foreach ($where as $column => $value) {
                 $whereClause[] = "$column = ?";
@@ -85,14 +83,12 @@ class Database {
     
             $whereClauseString = implode(' AND ', $whereClause);
     
-            // تجهيز الاستعلام النهائي
             $sql = "UPDATE $table SET $setClause WHERE $whereClauseString";
             $stmt = $this->pdo->prepare($sql);
     
-            // تنفيذ الاستعلام
             return $stmt->execute($values);
         } catch (PDOException $e) {
-            die("خطأ في التحديث: " . $e->getMessage());
+            die("error in update " . $e->getMessage());
         }
     }
 }
