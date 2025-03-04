@@ -39,29 +39,54 @@ class Database {
             return "Error in select: " . $e->getMessage();
         }
     }
+// public function insert(){
+//     try {           
+//         $sql = "";  
+//         $stmt = $this->pdo->prepare($sql);
+//         $stmt->execute();
+//         return $stmt->rowCount();
+
+// }
+    // public function insert($table, $columns, $values) {
+    //     try {
+    //         $colNames = implode(", ", $columns);
+    //         $placeholders = implode(", ", array_fill(0, count($values), "?"));
+    //         $sql = "INSERT INTO $table ($colNames) VALUES ($placeholders)";
+
+    //         // Debugging Output
+    //         echo "SQL Query: $sql<br>";
+    //         echo "Values: " . implode(", ", $values) . "<br>";
+
+    //         $stmt = $this->pdo->prepare($sql);
+    //         $result = $stmt->execute($values);
+
+    //         return $result ? $stmt->rowCount() : false;
+    //     } catch (PDOException $e) {
+    //         echo "Error in insert: " . $e->getMessage() . "<br>";
+    //         return false;
+    //     }
+    // }
 
     public function insert($table, $columns, $values) {
         try {
             $colNames = implode(", ", $columns);
             $placeholders = implode(", ", array_fill(0, count($values), "?"));
             $sql = "INSERT INTO $table ($colNames) VALUES ($placeholders)";
-            
+
+            // Debugging Output
             echo "SQL Query: $sql<br>";
             echo "Values: " . implode(", ", $values) . "<br>";
 
             $stmt = $this->pdo->prepare($sql);
             $result = $stmt->execute($values);
 
-            if ($result) {
-                return $stmt->rowCount();
-            } else {
-                return false;
-            }
+            return $result ? $stmt->rowCount() : false;
         } catch (PDOException $e) {
             echo "Error in insert: " . $e->getMessage() . "<br>";
             return false;
         }
     }
+
 
     public function update($table, $data, $where) {
         try {

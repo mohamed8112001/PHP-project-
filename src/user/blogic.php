@@ -52,6 +52,8 @@ class User extends Database{
 	// $columns=array("name", "email", "password", "ext", "role", "room_id", "image_path"); 
 	$res = $this->insert('user',['name','email','password','image_path','room_id'],[$name,$email,$password,$Profile_Picture,$room_no]);
 }
+
+
     // public function insertAllTrainees($name,$email,$password,$Profile_Picture,$room_no)
     // {
     //     $res = $this->insert('user',['name','email','password','image_path','room_id'],[$name,$email,$password,$Profile_Picture,$room_no]);
