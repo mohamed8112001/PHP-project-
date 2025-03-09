@@ -5,62 +5,87 @@ error_reporting(E_ALL);
 
 include_once('database.php');
 
-class User extends Database{ 
+class User { 
+    private $db; 
 
-    public function getAllRooms()
-    {
-        return $this->select('room');
-    }
-    public function getAllUsers()
-    {
-        return $this->select('user');
+    public function __construct() {
+        $this->db = new Database();
     }
 
-    // function insertTrainee($name, $email, $password, $image_path, $room_id) {
-    //     try {
-    //         $pdo = connectDB();
-    
-    //         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-    
-    //         $stmt = $pdo->prepare("INSERT INTO trainees (name, email, password, image_path, room_id) 
-    //                                VALUES (:name, :email, :password, :image_path, :room_id)");
-    //         $stmt->bindParam(':name', $name);
-    //         $stmt->bindParam(':email', $email);
-    //         $stmt->bindParam(':password', $hashed_password);
-    //         $stmt->bindParam(':image_path', $image_path);
-    //         $stmt->bindParam(':room_id', $room_id);
-    //         $stmt->execute();
-    
-    //         return "Done";
-    //     } catch (PDOException $e) {
-    //         return "error " . $e->getMessage();
+    public function getAllRooms() {
+        return $this->db->select('room');
+    }
+
+    public function getAllUsers() {
+        return $this->db->select('`user`'); // Backticks prevent reserved keyword issue
+    }
+
+    public function getUserById($id) {
+        return $this->db->select('`user`', ['id' => $id], false);
+    }
+
+    public function updateUser($updateData, $id) {
+        return $this->db->update('`user`', $updateData, ['id' => $id]);
+    }
+
+    public function deleteUser($id) {
+        return $this->db->delete('`user`',['id' => $id]  );
+    }
+
+    public function insert_room($room_no,$ext) {
+        return $this->db->insert('`room`',['number','ext'],[$room_no, $ext]);
+    }
+    // public function insert_user($name, $email, $password, $profile_picture, $room_no, $role = 'user') {
+    //     $stmt = $this->db->getConnection()->prepare(
+    //         "INSERT INTO `user` (name, email, password, image_path, room_id, role) VALUES (?, ?, ?, ?, ?, ?)"
+    //     );
+    //     return $stmt->execute([$name, $email, $password, $profile_picture, $room_no, $role]);
+    //     // return $this->db->insert('`user`',['name', 'email', 'password', 'image_path', 'room_id', 'role'],[$name, $email, $password, $profile_picture, $room_no, $role]);
+    // }
+
+    public function insert_user($name, $email, $password, $profile_picture, $room_no, $role = "user") {
+        // try {
+        //     $stmt = $this->db->getConnection()->prepare(
+        //         query: "INSERT INTO `user` (name, email, password, image_path, room_id, role) VALUES (?, ?, ?, ?, ?, ?)"
+        //         // 'INSERT INTO `user` (name, email, password, image_path, room_id, role) VALUES ("Mustafamohamed","mustafass@gmail.com","Mohamessd@8112001","dssd",1111,"user")'
+        //     );
+        //     $stmt->execute([$name, $email, $password, $profile_picture, $room_no, $role]);
+        //     echo "User inserted successfully!";
+        // } catch (PDOException $e) {
+        //     die("Insert failed: " . $e->getMessage());
+        // }
+        return $this->db->insert('`user`',['name', 'email', 'password', 'image_path', 'room_id', 'role'],[$name, $email, $password, $profile_picture, $room_no, $role]);
+
+    }
+   
+    // public function insert_room($room_no, $ext) {
+    //     // Ensure room number is not empty or duplicate
+    //     if (empty($room_no)) {
+    //         throw new Exception("Error: Room number cannot be empty.");
     //     }
+    
+    //     // Check if the room number already exists
+    //     $stmt = $this->db->getConnection()->prepare("SELECT COUNT(*) FROM `room` WHERE `number` = ?");
+    //     $stmt->execute([$room_no]);
+    //     $count = $stmt->fetchColumn();
+    
+    //     if ($count > 0) {
+    //         throw new Exception("Error: Room number already exists.");
+    //     }
+    
+    //     // Proceed with insertion
+    //     $stmt = $this->db->getConnection()->prepare(
+    //         "INSERT INTO `room` (number, ext) VALUES (?, ?)"
+    //     );
+    //     return $stmt->execute([$room_no, $ext]);
     // }
-    // public function update($tablename,$data,$condition)
-    // {
-        
-    // }
-
-        public function updateUser()
-        {
-
-        }
-    public function insertCustomer($name,$email,$password,$Profile_Picture,$room_no)
-{
-	$password_hash = password_hash($password, PASSWORD_DEFAULT);
-	// $values=array($name, $email, $password_hash, $ext, $role, $room_id, $pic_path);
-	// $columns=array("name", "email", "password", "ext", "role", "room_id", "image_path"); 
-	$res = $this->insert('user',['name','email','password','image_path','room_id'],[$name,$email,$password,$Profile_Picture,$room_no]);
-}
-
-
-    // public function insertAllTrainees($name,$email,$password,$Profile_Picture,$room_no)
-    // {
-    //     $res = $this->insert('user',['name','email','password','image_path','room_id'],[$name,$email,$password,$Profile_Picture,$room_no]);
-    // }
-    // public function insertRoom($number=1000,$ext=1000)
-    // {
-    //     // $res = $this->insert('room',['number','ext'],[$number,$ext]);
+    
+    
+    // public function insert_room($room_no,$ext) {
+    //     $stmt = $this->db->getConnection()->prepare(
+    //         "INSERT INTO `room` (number, ext) VALUES (?, ?)"
+    //     );
+    //     return $stmt->execute([$room_no, $ext]);
     // }
 }
 ?>

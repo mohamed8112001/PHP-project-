@@ -71,7 +71,7 @@
     $id = $_GET['id'] ?? null;
 
     if ($id) {
-        $user = $blogic->select('user', ['id' => $id], false);
+        $user = $blogic->getUserById($id);
         if ($user) {
             echo "<p>Updating user: <strong>" . htmlspecialchars($user['name']) . "</strong></p>";
         } else {
@@ -121,7 +121,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'room_id' => $room_id,
             'role' => $role
         ];
-        $blogic->update('user', $updateData, ['id' => $id]);
+        $blogic->updateUser($updateData,$id);
         header("Location: All_Users.php");
         exit;
     } else {

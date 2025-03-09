@@ -7,8 +7,8 @@ $blogic = new User();
 $id = $_GET['id'] ?? null;
 
 if ($id) {
-    $stmt = $blogic->getConnection()->prepare("DELETE FROM user WHERE id = ?");
-    $stmt->execute([$id]);
+    $blogic->deleteUser($id);
+    
     header("Location: All_Users.php"); 
     exit;
 } else {
