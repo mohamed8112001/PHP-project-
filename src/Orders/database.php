@@ -49,6 +49,23 @@ class Database
          return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }	
 
+<<<<<<< HEAD
+=======
+
+	public function update($table, $columns, $values, $condition)
+	{
+		if(count($values)==count($columns)+1)
+		{	
+			$setClause = implode(" = ?, ", $columns) . " = ?";		
+			$sql = "UPDATE $table SET $setClause WHERE $condition";
+			$stmt = $this->conn->prepare($sql);        	       
+			$stmt->execute($values)  ;   		
+		}else{
+			echo "Number of columns and values are not identical.<br>";
+		}
+	}
+
+>>>>>>> 0c9b7c7 (Admin orders back-end)
 }
 
 ?>

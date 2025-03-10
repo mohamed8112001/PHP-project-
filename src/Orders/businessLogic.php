@@ -6,7 +6,7 @@ class Orders
 	private $db;
 	public function __construct()
 	{
-		$this->db= new Database();;
+		$this->db= new Database();
 	}
 	
 	public function userOrders($userId,$dateFrom,$dateTo){
@@ -57,6 +57,37 @@ class Orders
 	public function getAllUsers(){
 		return $this->db->selectAll("user");
 	}
+<<<<<<< HEAD
+=======
+
+	public function adminProcessingOrders(){
+
+		$sql = "SELECT o.id AS order_id, o.date AS order_date, u.id AS user_id ,u.name AS username, r.number AS room_number, r.ext AS eoom_ext                     
+                    FROM orders o JOIN user u ON o.user_id = u.id JOIN room r ON u.room_id = r.id
+                    WHERE o.status = 'Processing'";
+
+		return $this->db->select($sql,[]);			
+	}
+
+	public function orderTotalPrice($orderId){
+		$sql="SELECT SUM(p.price * op.quantity) AS total_price
+				FROM orders o
+				JOIN order_product op ON o.id = op.order_id
+				JOIN product p ON op.product_id = p.id
+				WHERE o.id = :orderId";
+
+		return $this->db->select($sql,[':orderId'=>$orderId]);			
+	}
+
+	public function updateOrderStatus($orderId){
+
+		$values=array("Out for delivery",$orderId);
+		$columns=array("status"); 
+		$condition="id= ?";
+		$this->db->update("orders", $columns, $values, $condition);
+	}
+
+>>>>>>> 0c9b7c7 (Admin orders back-end)
 }
 
 ?>
