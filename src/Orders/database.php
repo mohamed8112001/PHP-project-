@@ -41,6 +41,14 @@ class Database
         $this->conn->exec($sql);        
     }
 
+
+	function selectAll($table)
+    {	        
+        $stmt = $this->conn->prepare("SELECT * FROM $table");
+        $stmt->execute();
+         return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }	
+
 }
 
 ?>
