@@ -16,8 +16,9 @@
             <span class="bar"></span>
         </div>
         <ul class="nav-menu">
-            <li class="nav-item"><a href="adduser.php" class="nav-link">Home</a></li>
-            <li class="nav-item"><a href="#products" class="nav-link">Products</a></li>
+            <li class="nav-item"><a href="Home.php" class="nav-link">Home</a></li>
+            <li class="nav-item"><a href="adduser.php" class="nav-link">Add User</a></li>
+            <li class="nav-item"><a href="addCategory.php" class="nav-link">Products</a></li>
             <li class="nav-item"><a href="All_Users.php" class="nav-link">Users</a></li>
             <li class="nav-item"><a href="#checks" class="nav-link">Checks</a></li>
             <li class="nav-item"><a href="#manual-order" class="nav-link">Manual Order</a></li>

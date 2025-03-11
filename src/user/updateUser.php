@@ -55,9 +55,47 @@
             color: red;
             font-weight: bold;
         }
+        
+        .background {
+    width: 100%;
+    height: 100vh;
+    background:  
+      linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), /* تدرج لوني مع شفافية */
+      url('images/rr-abrot-pNIgH0y3upM-unsplash.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  /* .container {
+    color: white;
+    font-size: 3rem;
+    text-align: center;
+  } */
+        /* .background {
+    width: 100%;
+    height: 100vh;
+    position: relative;
+    background-image: url('images/background2.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  .background::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* اللون الأسود مع شفافية */
+    /* z-index: 1;
+  } */ 
+
     </style>
 </head>
-<body>
+<body class="background">
 
 <div class="container">
     <h2>Update User Information</h2>

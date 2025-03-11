@@ -108,8 +108,11 @@ $blogic = new User(); // For fetching rooms in the form
     <title>Add User</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="templates/stylee.css">
+      <style></style>
 </head>
 <body>
+<!-- <img src="images/background2.jpg" alt="Test Image" /> -->
+
     <?php include('templates/navbar.php'); ?>
 
     <div class="page-container">

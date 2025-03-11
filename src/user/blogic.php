@@ -88,6 +88,24 @@ class User {
     //     return $stmt->execute([$room_no, $ext]);
     // }
 }
+
+class Category {
+    private $db;
+
+    // Constructor to inject the database connection
+    // public function __construct($db) {
+    //     $this->db = $db;
+    // }
+    public function __construct() {
+        $this->db = new Database();
+    }
+
+
+    public function insertCategory($name) {
+        return $this->db->insert('`category`', ['name'], [$name]);
+    }
+}
 ?>
+
 
 
