@@ -1,0 +1,239 @@
+* {
+    box-sizing: border-box;
+}
+
+header {
+    background-color: mediumslateblue;
+    padding: 5px;
+}
+
+body {
+    font-family: cursive;
+    margin: auto;
+    padding: 0;
+    background-color: #FFF2F2;
+
+}
+
+h1 {
+    text-align: center;
+    color: #2D336B;
+    width: 90%;
+    max-width: 500px;
+    margin: 30px auto;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: #2D336B 2px 4px 6px 8px;
+    font-style: italic;
+
+}
+
+nav {
+    background-color: rgb(139, 122, 236);
+    padding: 25px 25px;
+    margin: 25px 25px;
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: #2D336B 2px 2px 2px 2px;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding: 0;
+}
+
+nav ul li {
+    background-color: #0d102e;
+    display: inline;
+    box-shadow: #0d102e 0px 2px 2px 2px;
+    transition: all 0.3s ease;
+
+}
+
+nav ul li:hover {
+    background-color: #0d102e;
+    display: inline;
+    box-shadow: #0d102e 2px 2px 2px 2px;
+    transform: scale(1.1);
+
+
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: white;
+    font-size: 18px;
+    padding: 10px 15px;
+    border-radius: 5px;
+}
+
+main {
+    margin: 10px 10px;
+}
+
+.container_form {
+    width: 90%;
+    max-width: 500px;
+    text-align: center;
+    margin: auto;
+    padding: 5px;
+    border: 1px solid #A9B5DF;
+    border-radius: 10px;
+    box-shadow: #A9B5DF 2px 4px 6px 8px
+}
+
+form {
+    width: 90%;
+    max-width: 500px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 4px 4px 2px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+input {
+    background-color: #FFF2F2;
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #A9B5DF;
+    border-radius: 5px;
+    transition: all 0.5s ease-in-out;
+    text-align: center;
+}
+
+input:hover {
+    transform: scale(1.1);
+    box-shadow: #A9B5DF 2px 2px 2px 2px;
+}
+
+input:focus {
+    transform: scale(1.1);
+    box-shadow: #A9B5DF 2px 2px 2px 2px;
+
+}
+
+select {
+    background-color: #FFF2F2;
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #A9B5DF;
+    border-radius: 5px;
+    transition: all 0.5s ease-in-out;
+    text-align: center;
+}
+
+select:hover {
+    transform: scale(1.1);
+    box-shadow: #A9B5DF 2px 2px 2px 2px;
+}
+
+#image {
+    background-color: #FFF2F2;
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #A9B5DF;
+    border-radius: 5px;
+    transition: all 0.5s ease-in-out;
+    text-align: center;
+
+}
+
+button {
+    width: 100%;
+    max-width: 200px;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #A9B5DF;
+    border-radius: 5px;
+    background-color: mediumslateblue;
+    color: #ddd;
+
+    font-size: 1em;
+    font-style: italic;
+    font-weight: bold;
+    transition: all 0.5s ease-in-out;
+}
+
+button:hover {
+    transform: scale(1.1);
+    box-shadow: #2d336b91 2px 2px 2px 2px;
+}
+
+
+
+footer {
+    background-color: #2D336B;
+    text-align: center;
+    color: #A9B5DF;
+    font-size: 1.5rem;
+    font-weight: bold;
+    border: #2D336B solid 1px;
+}
+
+h2 {
+    text-align: center;
+    color: #2D336B;
+    width: 90%;
+    max-width: 500px;
+    margin: 30px auto;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: #2D336B 2px 4px 6px 8px;
+    font-style: italic;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 18px;
+    text-align: left;
+    color: #0d102e;
+}
+
+th,
+td {
+    padding: 12px;
+    border: 1px solid #2D336B;
+    background-color: #A9B5DF;
+}
+
+th {
+    background-color: #2D336B;
+    color: #A9B5DF;
+}
+
+.btn {
+    padding: 6px 12px;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    display: inline-block;
+    transition: all 0.3s ease;
+}
+
+.edit-btn {
+    background-color: #ffc107;
+    color: black;
+    border: #ffc107 solid 1px;
+}
+
+.delete-btn {
+    background-color: #dc3545;
+    color: white;
+    border: #dc3545 solid 1px;
+}
+
+.btn:hover {
+    transform: scale(1.1);
+    box-shadow: #2d336b91 2px 2px 2px 2px;
+}
