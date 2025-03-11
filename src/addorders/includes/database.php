@@ -8,7 +8,17 @@ class Database{
 	{
 		$this->conn=$conn;
 	}
-		
+	
+	public function insert($table, $values){
+		try{
+			$stmt=$this->conn->prepare("insert into ".$table." values(".$values.");");
+			$stmt->execute();
+		}catch(PDOException $e){
+			die("Database Error: " . $e->getMessage());
+			error_log("Database Error: " . $e->getMessage());
+            return [];
+		}
+	}
 	
 	public function select($sql,$param =[])
 	{

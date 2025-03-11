@@ -4,20 +4,20 @@ class Product {
     public $id;
     public $price;
     public $status;
-    public $image_path;
+    public $imagePath;
     public $category;
     
     public function __construct($name
     ,$id
     ,$price
     ,$status
-    ,$image_path
+    ,$imagePath
     ,$category){
         $this->id=$id;
         $this->name=$name;
         $this->price=$price;
         $this->status=$status;
-        $this->image_path=$image_path;
+        $this->imagePath=$imagePath;
         $this->category=$category;
 
     }
