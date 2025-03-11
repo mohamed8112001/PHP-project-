@@ -76,7 +76,6 @@ class OrderController {
         
         $rooms = $this->roomModel->getAllRooms();
         
-        include(__DIR__ . '/../views/user/place_order.php');
     }
     
     public function adminPlaceOrder() {
@@ -116,7 +115,6 @@ class OrderController {
         
         $rooms = $this->roomModel->getAllRooms();
         
-        include(__DIR__ . '/../views/admin/place_order.php');
     }
     
     public function viewAllOrders() {
@@ -128,7 +126,6 @@ class OrderController {
         
         $orders = $this->orderModel->getAllOrders(null);
 
-        include(__DIR__ . '/../views/admin/all_orders.php');
     }
 }
 ?>
