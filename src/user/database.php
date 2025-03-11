@@ -111,5 +111,61 @@ class Database {
             die("error in update " . $e->getMessage());
         }
     }
+    
 }
+
+// class Category{
+//     public $pdo;
+//     public function __construct() {
+//         global $host, $database, $username, $password; // Ensure these variables exist in config.php
+        
+//         try {
+//             $dsn = "mysql:host=$host;dbname=$database;charset=utf8mb4";
+//             $this->pdo = new PDO($dsn, $username, $password);
+//             $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+//         } catch (PDOException $e) {
+//             die("Database connection failed: " . $e->getMessage());
+//         }
+//     }
+
+//     public function getConnection() {
+//         return $this->pdo; // Return the PDO instance
+//     }
+//     public function select($tablename, $conditions = [], $fetchAll = true) {
+
+//         try {
+//             $sql = "SELECT * FROM $tablename";
+//             if (!empty($conditions)) {
+//                 $whereClauses = [];
+//                 foreach ($conditions as $column => $value) {
+//                     $whereClauses[] = "$column = :$column";
+//                 }
+//                 $sql .= " WHERE " . implode(" AND ", $whereClauses);
+//             }
+//             $stmt = $this->pdo->prepare($sql);
+//             $stmt->execute($conditions);
+//             return $fetchAll ? $stmt->fetchAll(PDO::FETCH_ASSOC) : $stmt->fetch(PDO::FETCH_ASSOC);
+//         } catch (PDOException $e) {
+//             return "Error in select: " . $e->getMessage();
+//         }
+//     }
+//     public function insert($tablename, $columns, $values) {
+//         if (count($columns) !== count($values)) {
+//             throw new Exception("Number of columns does not match number of values.");
+//         }
+
+//         $placeholders = array_map(fn($col) => ":$col", $columns);
+//         $columnsStr = implode(', ', $columns);
+//         $placeholdersStr = implode(', ', $placeholders);
+
+//         $sql = "INSERT INTO $tablename ($columnsStr) VALUES ($placeholdersStr)";
+//         $stmt = $this->pdo->prepare($sql);
+
+//         $params = array_combine($placeholders, $values);
+//         $stmt->execute($params);
+
+//         return $stmt->rowCount();
+//     }
+// }
+
 ?>  
