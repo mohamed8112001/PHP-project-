@@ -57,8 +57,6 @@ class Orders
 	public function getAllUsers(){
 		return $this->db->selectAll("user");
 	}
-<<<<<<< HEAD
-=======
 
 	public function adminProcessingOrders(){
 
@@ -87,7 +85,6 @@ class Orders
 		$this->db->update("orders", $columns, $values, $condition);
 	}
 
->>>>>>> 0c9b7c7 (Admin orders back-end)
 }
 
 ?>
