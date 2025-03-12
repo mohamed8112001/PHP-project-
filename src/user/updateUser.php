@@ -144,7 +144,6 @@
 </form>
 <?php
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    var_dump($_POST);
 
     $id = $_POST['id'] ?? null;
     $name = $_POST['name'] ?? null;
