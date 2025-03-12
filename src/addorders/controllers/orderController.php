@@ -19,6 +19,10 @@ class OrderController {
         return $this->orderModel->insertNewOrder($room);
     }
 
+    public function isLimitedOrpopular($product){
+        return $this->orderModel->isLimitedOrpopular($product->id);
+    }
+
     public function getLastInsertId()
     {
         global $conn;
@@ -134,7 +138,7 @@ class OrderController {
         // }
         
         $orders = $this->orderModel->getAllOrders(null);
-
+        return $orders;
     }
 }
 ?>

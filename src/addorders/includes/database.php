@@ -8,6 +8,7 @@ class Database{
 	{
 		$this->conn=$conn;
 	}
+
 	
 	public function insert($table, $values){
 		try{

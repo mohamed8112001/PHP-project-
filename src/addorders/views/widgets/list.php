@@ -16,17 +16,28 @@ error_reporting(E_ALL);
     <div class="product-grid-container" id="productGrid">
         <?php 
         include 'controllers/productController.php';
+        include 'controllers/orderController.php';
+
         $controller = new ProductController();
+        $orderController = new OrderController();
         $products=$controller->getAllProduct();
+
         foreach ($products  as $product){
+
+            $res = $orderController->isLimitedOrpopular($product);
+            echo '<div class="product-grid-item">';
+
+            if ($res === "popular") {
+                echo '<span class="product-badge product-popular">Popular</span>';
+            } else if ($res === "limited") {
+                echo '<span class="product-badge product-limited">Limited</span>';
+            }
+        
             echo '
-            <div class="product-grid-item">
-            <span class="product-badge product-popular">Popular</span>
-            <img src="'.$product->imagePath.'" alt="'.$product->name.'" class="product-img">
-            <h6>'.$product->name.'</h6>
-            <div class="product-price">'.$product->price.' LE</div>
-        </div>
-            ';
+                <img src="' . $product->imagePath . '" alt="' . $product->name . '" class="product-img">
+                <h6>' . $product->name . '</h6>
+                <div class="product-price">' . $product->price . ' LE</div>
+            </div>';
         }
         ?>
     </div>
