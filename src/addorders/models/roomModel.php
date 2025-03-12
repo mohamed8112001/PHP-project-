@@ -9,15 +9,15 @@ class RoomModel {
         $this->db = new Database($conn);
     }
 
+
     public function getAllRooms() {
         $records = $this->db->selectAll("room");
         $rooms = [];
         foreach ($records as $record) {
             $rooms[] = new Room(
                 $record['id'],
-                $record['name'],
-                $record['location'],
-                $record['capacity']
+                $record['number'],
+                $record['ext'],
             );
         }
         return $rooms;
@@ -29,9 +29,8 @@ class RoomModel {
             $record = $rooms[0];
             return new Room(
                 $record['id'],
-                $record['name'],
-                $record['location'],
-                $record['capacity']
+                $record['number'],
+                $record['ext'],
             );
         }
         return null;

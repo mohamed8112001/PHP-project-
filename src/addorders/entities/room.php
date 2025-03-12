@@ -1,15 +1,13 @@
 <?php
-class Product {
+class Room {
     public $id;
-    public $name;
-    public $location;
-    public $capacity;
+    public $number;
+    public $ext;
 
-    public function __construct($id, $name, $location, $capacity) {
+    public function __construct($id, $number, $ext) {
         $this->id = $id;
-        $this->name = $name;
-        $this->location = $location;
-        $this->capacity = $capacity;
+        $this->number = $number;
+        $this->ext = $ext;
     }
 }
 ?>

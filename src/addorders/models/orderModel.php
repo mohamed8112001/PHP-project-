@@ -6,7 +6,7 @@ class OrderModel{
     private $db;
 
     public function __construct($conn){
-        $this->db=new Database();
+        $this->db=new Database($conn);
     }
 
     public function getAllOrders($id){

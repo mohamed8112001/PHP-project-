@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '../entities/user.php';
+require_once __DIR__ . '/../entities/user.php';
 require_once __DIR__ . '/../includes/database.php';
 
 class UserModel{
@@ -10,9 +10,9 @@ class UserModel{
     }
 
     public function getAllUsers(){
-        $users=$this->db->selectAll("user");
+        $records=$this->db->selectAll("user");
         $users=[];
-        foreach($users as $record){
+        foreach($records as $record){
             $users[] = new  User($record['id'], $record['name'], $record['email'], $record['password'], $record['image_path'], $record['role'], $record['room_id']);
         }
         return $users;

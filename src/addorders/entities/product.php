@@ -1,4 +1,5 @@
 <?php
+
 class Product {
     public $name;
     public $id;
@@ -7,8 +8,8 @@ class Product {
     public $imagePath;
     public $category;
     
-    public function __construct($name
-    ,$id
+    public function __construct($id
+    ,$name
     ,$price
     ,$status
     ,$imagePath
