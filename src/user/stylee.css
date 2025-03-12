@@ -1,0 +1,208 @@
+/* Ensure the body and html take full height */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--light); /* Cream background for consistency */
+}
+
+/* Adjust page-container to center the form and fill the page */
+.page-container {
+    min-height: calc(100vh - 100px); /* Account for navbar height */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: var(--light); /* Match the light coffee theme */
+}
+
+/* Form Styling to match navbar and fill space */
+.admin-form {
+    width: 100%;
+    max-width: 600px; /* Slightly wider for better fit */
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+    border-top: 4px solid var(--primary); /* Coffee Brown top border */
+}
+
+/* Form Header Styling */
+.form-header {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 25px;
+    color: var(--primary); /* Coffee Brown */
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Form Group Styling */
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: var(--dark); /* Dark Roast for text */
+}
+
+input, select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--dark); /* Dark Roast border */
+    border-radius: 8px;
+    font-size: 16px;
+    box-sizing: border-box;
+    background-color: var(--light); /* Cream background */
+    color: var(--dark);
+}
+
+input:focus, select:focus {
+    border-color: var(--secondary); /* Golden Coffee on focus */
+    outline: none;
+    box-shadow: 0 0 5px rgba(218, 165, 32, 0.5); /* Subtle glow */
+}
+
+/* Password Wrapper */
+.password-wrapper {
+    position: relative;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: var(--primary); /* Coffee Brown */
+}
+
+.toggle-password:hover {
+    color: var(--secondary); /* Golden Coffee on hover */
+}
+
+/* Error Messages */
+.error {
+    color: #e74c3c; /* Red for errors */
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+/* Success & Error Containers */
+.success-message {
+    background-color: rgba(139, 69, 19, 0.1); /* Light Coffee Brown */
+    color: var(--dark);
+    padding: 12px;
+    border: 1px solid var(--primary);
+    border-radius: 6px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.error-container {
+    background-color: rgba(231, 76, 60, 0.1); /* Light red */
+    color: #721c24;
+    padding: 12px;
+    border: 1px solid #e74c3c;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Button Group Styling */
+.button-group {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px; /* Space between buttons */
+}
+
+input[type="submit"],
+.cancel-button {
+    width: 48%; /* Equal width for both buttons */
+    padding: 14px;
+    font-size: 16px;
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+input[type="submit"] {
+    background-color: var(--primary); /* Coffee Brown */
+    color: var(--light); /* Cream text */
+}
+
+input[type="submit"]:hover {
+    background-color: var(--secondary); /* Golden Coffee on hover */
+    transform: translateY(-2px); /* Slight lift */
+}
+
+.cancel-button {
+    background-color: var(--dark); /* Dark Roast */
+    color: var(--light); /* Cream text */
+    text-decoration: none;
+}
+
+.cancel-button:hover {
+    background-color: #5a2d0c; /* Darker Coffee Brown */
+    transform: translateY(-2px);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .admin-form {
+        padding: 25px;
+        max-width: 100%; /* Full width on smaller screens */
+    }
+
+    .form-header {
+        font-size: 24px;
+    }
+
+    input, select {
+        font-size: 15px;
+        padding: 10px;
+    }
+
+    input[type="submit"],
+    .cancel-button {
+        font-size: 15px;
+        padding: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .admin-form {
+        padding: 20px;
+    }
+
+    .form-header {
+        font-size: 20px;
+    }
+
+    .button-group {
+        flex-direction: column; /* Stack buttons vertically */
+        gap: 15px;
+    }
+
+    input[type="submit"],
+    .cancel-button {
+        width: 100%; /* Full width on small screens */
+        font-size: 14px;
+        padding: 12px;
+    }
+}

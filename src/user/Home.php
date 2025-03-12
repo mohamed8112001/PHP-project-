@@ -1,8 +1,3 @@
-<?php
-// include_once('templates/navbar.php');
-// include_once('templates/footer.php');
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -61,6 +56,7 @@
                 opacity: 0;
                 transform: translateY(20px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -68,48 +64,62 @@
         }
 
         @keyframes blink {
-            from, to {
+
+            from,
+            to {
                 background-color: transparent;
             }
+
             50% {
                 background-color: #ffcc00;
             }
-            
+
         }
-        .top-right-links {
-        position: absolute;
-        top: 20px;
-        right: 20px;
-        display: flex;
-        gap: 10px; /* مسافة بين الأزرار */
-    }
 
-    .top-right-link {
-        font-size: 16px;
-        color: #fff;
-        text-decoration: none;
-        padding: 8px 15px;
-        background-color: rgba(255, 255, 255, 0.1);
-        border-radius: 5px;
-        transition: background-color 0.3s ease;
-    }
+        .container {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
 
-    .top-right-link:hover {
-        background-color: rgba(255, 255, 255, 0.3);
-    }
+        .fixed-links {
+            position: absolute;
+            top: 100px;
+            display: flex;
+            gap: 15px;
+        }
+
+        .fixed-link {
+            font-size: 18px;
+            color: #ffcc00;
+            text-decoration: none;
+            padding: 10px 20px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .fixed-link:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+        }
     </style>
 </head>
 
 <body class="background">
-    <div class="top-right-links">
-        <a href="#" class="top-right-link">Login In</a>
-        <a href="#" class="top-right-link">Sign Up</a>
+
+
+    <div class="container">
+        <div class="typing-container" id="text"></div>
+
+        <!-- Login & Sign Up Buttons -->
+        <div class="fixed-links">
+            <a href="login.php" class="fixed-link">Login In</a>
+            <a href="adduser.php" class="fixed-link">Sign Up</a>
+        </div>
     </div>
-
-    <div class="typing-container" id="text"></div>
-
     <script>
-        const text = "Cafeteria"; 
+        const text = "Cafeteria";
         const container = document.getElementById("text");
         let index = 0;
 
@@ -118,10 +128,10 @@
                 const span = document.createElement("span");
                 span.classList.add("letter");
                 span.textContent = text.charAt(index);
-                span.style.animationDelay = `${index * 0.08}s`; 
+                span.style.animationDelay = `${index * 0.08}s`;
                 container.appendChild(span);
                 index++;
-                setTimeout(typeText, 80); 
+                setTimeout(typeText, 80);
             } else {
                 const cursor = document.createElement("div");
                 cursor.classList.add("cursor");
