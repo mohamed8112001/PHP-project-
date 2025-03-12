@@ -4,100 +4,8 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 include_once('blogic.php');
-include_once('templates/navbar.php');
 
-$success_message = '';
-$errors = [];
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Sanitize and validate input
-    $name = trim($_POST['name'] ?? '');
-    $email = trim($_POST['email'] ?? '');
-    $password = $_POST['password'] ?? '';
-    $cpassword = $_POST['Cpassword'] ?? '';
-    $room_no = $_POST['room-no'] ?? '';
-    $ext = $_POST['ext'] ?? '';
-    $profile_picture = '';
-
-    // Name validation
-    if (empty($name)) {
-        $errors[] = 'Name is required.';
-    } elseif (strlen($name) < 3) {
-        $errors[] = 'Name must be at least 3 characters long.';
-    }
-
-    // Email validation
-    if (empty($email)) {
-        $errors[] = 'Email is required.';
-    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $errors[] = 'Invalid email format.';
-    }
-
-    // Password validation
-    if (empty($password)) {
-        $errors[] = 'Password is required.';
-    } elseif (strlen($password) < 8) {
-        $errors[] = 'Password must be at least 8 characters long.';
-    } elseif (!preg_match('/[A-Z]/', $password)) {
-        $errors[] = 'Password must contain at least one uppercase letter.';
-    } elseif (!preg_match('/[0-9]/', $password)) {
-        $errors[] = 'Password must contain at least one number.';
-    }
-
-    // Confirm password validation
-    if ($password !== $cpassword) {
-        $errors[] = 'Passwords do not match.';
-    }
-
-    // Room number validation
-    if (empty($room_no) || !is_numeric($room_no)) {
-        $errors[] = 'Room number is required and must be a number.';
-    }
-
-    // Extension validation (optional)
-    if (!empty($ext) && !is_numeric($ext)) {
-        $errors[] = 'Extension must be a number.';
-    }
-
-    // Profile picture validation (optional)
-    if (isset($_FILES['Profile_Picture']) && $_FILES['Profile_Picture']['error'] == UPLOAD_ERR_OK) {
-        $file_tmp = $_FILES['Profile_Picture']['tmp_name'];
-        $file_name = basename($_FILES['Profile_Picture']['name']);
-        $file_ext = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
-        $allowed_exts = ['jpg', 'jpeg', 'png', 'gif'];
-
-        if (!in_array($file_ext, $allowed_exts)) {
-            $errors[] = 'Invalid file type. Only JPG, JPEG, PNG, and GIF are allowed.';
-        } else {
-            $file_path = "uploads/" . uniqid() . '.' . $file_ext; // Unique filename
-            if (!is_dir('uploads')) {
-                mkdir('uploads', 0777, true);
-            }
-            if (move_uploaded_file($file_tmp, $file_path)) {
-                $profile_picture = $file_path;
-            } else {
-                $errors[] = 'Failed to upload profile picture.';
-            }
-        }
-    }
-
-    // If there are errors, store them for display
-    if (!empty($errors)) {
-        // Errors will be shown in the form below
-    } else {
-        // Insert the user into the database
-        try {
-            $blogic = new User();
-            $blogic->insert_user($name, $email, $password, $profile_picture, $room_no, 'user');
-            $success_message = "User '$name' registered successfully! Redirecting to dashboard...";
-            // No immediate header redirect here; we'll use JavaScript below
-        } catch (Exception $e) {
-            $errors[] = "Error: " . $e->getMessage();
-        }
-    }
-}
-
-$blogic = new User(); // For fetching rooms in the form
+$blogic = new User(); // For fetching rooms
 ?>
 
 <!DOCTYPE html>
@@ -105,28 +13,25 @@ $blogic = new User(); // For fetching rooms in the form
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add User</title>
+    <title>Add User - PHP CoffeeCenter</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="templates/stylee.css">
-      <style></style>
-</head>
-<body>
-<!-- <img src="images/background2.jpg" alt="Test Image" /> -->
+    <link rel="stylesheet" href="stylee.css">
+    <style>
+       
 
-    <?php include('templates/navbar.php'); ?>
+    </style>
+</head>
+<body class="admin-page">
+    <?php include_once('templates/nav.php'); ?>
 
     <div class="page-container">
-    <form action="validation.php" method="post" enctype="multipart/form-data" id="registrationForm">
+        <form action="validation.php" method="post" enctype="multipart/form-data" id="registrationForm" class="admin-form">
             <div class="form-header">Add New User</div>
 
             <?php
             if (!empty($success_message)) {
                 echo "<div class='success-message'>$success_message</div>";
-                echo "<script>
-                        setTimeout(() => {
-                            window.location.href = 'index.php'; // Redirect to dashboard, not self
-                        }, 2000);
-                      </script>";
+                echo "<script>setTimeout(() => { window.location.href = 'index.php'; }, 2000);</script>";
             }
 
             if (!empty($errors)) {
@@ -154,7 +59,7 @@ $blogic = new User(); // For fetching rooms in the form
                 <label for="password">Password <span class="required">*</span></label>
                 <div class="password-wrapper">
                     <input type="password" name="password" id="password" placeholder="Enter your password" required aria-describedby="password-error">
-                    <button type="button" class="toggle-password" aria-label="Toggle password visibility">👁️</button>
+                    <button type="button" class="toggle-password" aria-label="Toggle password visibility"><i class="fas fa-eye"></i></button>
                 </div>
                 <span class="error" id="password-error"></span>
             </div>
@@ -163,7 +68,7 @@ $blogic = new User(); // For fetching rooms in the form
                 <label for="Cpassword">Confirm Password <span class="required">*</span></label>
                 <div class="password-wrapper">
                     <input type="password" name="Cpassword" id="Cpassword" placeholder="Confirm your password" required aria-describedby="cpassword-error">
-                    <button type="button" class="toggle-password" aria-label="Toggle password visibility">👁️</button>
+                    <button type="button" class="toggle-password" aria-label="Toggle password visibility"><i class="fas fa-eye"></i></button>
                 </div>
                 <span class="error" id="cpassword-error"></span>
             </div>
@@ -194,39 +99,46 @@ $blogic = new User(); // For fetching rooms in the form
             </div>
 
             <div class="button-group">
-                <input type="submit" name="send" value="Add User">
+                <input type="submit" name="send" style="background: #8B4513;" value="Add User">
+                <a href="Home.php" class="cancel-button">Cancel</a>
             </div>
         </form>
     </div>
+
+    <?php include_once('templates/footer.php'); ?>
 
     <script>
         // Navbar Toggle
         const mobileMenu = document.getElementById('mobile-menu');
         const navMenu = document.querySelector('.nav-menu');
-        mobileMenu.addEventListener('click', () => {
-            mobileMenu.classList.toggle('active');
-            navMenu.classList.toggle('active');
-        });
+        if (mobileMenu && navMenu) {
+            mobileMenu.addEventListener('click', () => {
+                mobileMenu.classList.toggle('active');
+                navMenu.classList.toggle('active');
+            });
+        }
 
         // Dynamic Navbar Background on Scroll
         window.addEventListener('scroll', () => {
-            const navbar = document.querySelector('.navbar');
-            if (window.scrollY > 50) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
+            const navbar = document.querySelector('.admin-navbar');
+            if (navbar) {
+                if (window.scrollY > 50) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
             }
         });
-        
 
         // Client-side Validation
-        document.getElementById('registrationForm').addEventListener('submit', function(e) {
+        document.getElementById('registrationForm').addEventListener('submit', function (e) {
             let isValid = true;
             const name = document.getElementById('name').value;
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
             const cpassword = document.getElementById('Cpassword').value;
             const room = document.getElementById('room-no').value;
+            const ext = document.getElementById('ext').value;
             const file = document.getElementById('Profile_Picture').files[0];
 
             document.querySelectorAll('.error').forEach(error => error.textContent = '');
@@ -262,6 +174,11 @@ $blogic = new User(); // For fetching rooms in the form
                 isValid = false;
             }
 
+            if (ext && !/^\d+$/.test(ext)) {
+                document.getElementById('ext-error').textContent = 'Extension must be a number.';
+                isValid = false;
+            }
+
             if (file && !['image/jpeg', 'image/png', 'image/gif'].includes(file.type)) {
                 document.getElementById('file-error').textContent = 'Only JPG, PNG, or GIF allowed.';
                 isValid = false;
@@ -276,15 +193,20 @@ $blogic = new User(); // For fetching rooms in the form
         document.querySelectorAll('.toggle-password').forEach(button => {
             button.addEventListener('click', () => {
                 const input = button.previousElementSibling;
+                const icon = button.querySelector('i');
                 input.type = input.type === 'password' ? 'text' : 'password';
-                button.textContent = input.type === 'password' ? '👁️' : '🙈';
+                icon.classList.toggle('fa-eye');
+                icon.classList.toggle('fa-eye-slash');
             });
         });
     </script>
-
-
-    </div>
-
-   
 </body>
 </html>
+
+
+
+
+
+
+
+
