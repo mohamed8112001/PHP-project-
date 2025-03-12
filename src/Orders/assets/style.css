@@ -1,3 +1,6 @@
+body{
+    background:#FFF8E7
+}
 .orders-container {
     max-width: 1200px;
     margin: 0 auto;
@@ -14,7 +17,7 @@
 }
 
 .filter-container {
-    background: white;
+    background: #FFF8E7;
     border-radius: 15px;
     padding: 20px;
     box-shadow: 0 5px 15px rgba(0,0,0,0.05);
