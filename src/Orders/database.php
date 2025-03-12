@@ -49,8 +49,6 @@ class Database
          return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }	
 
-<<<<<<< HEAD
-=======
 
 	public function update($table, $columns, $values, $condition)
 	{
@@ -65,7 +63,6 @@ class Database
 		}
 	}
 
->>>>>>> 0c9b7c7 (Admin orders back-end)
 }
 
 ?>
