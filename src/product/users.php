@@ -26,6 +26,7 @@ $db = new BusinessLogic($database);
                 <td><?= $user['room_name'] ?></td>
                 <td><?= $user['ext'] ?></td>
                 <td>
+                    
                     <?php
                     $image_path = 'Images/' . md5($user['email']) . '.jpg';
                     if (file_exists($image_path)) {

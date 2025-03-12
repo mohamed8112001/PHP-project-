@@ -7,14 +7,15 @@ $database = new Database($pdo);
 $db       = new BusinessLogic($database);
 
 if (!isset($_GET['id'])) {
-    die("طلب غير صالح");
+    die("Invalid request");
 }
+
 $id = $_GET['id'];
 $deleted = $db->delete_product($id);
 if ($deleted) {
     header("Location: index.php");
     exit();
 } else {
-    echo "حدث خطأ أثناء حذف المنتج!";
+    echo "An error occurred while deleting the product!";
 }
 ?>

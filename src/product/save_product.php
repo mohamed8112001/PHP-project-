@@ -13,7 +13,7 @@ $error    = '';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (!isset($_POST['name'], $_POST['price'], $_POST['status'], $_POST['category_id'])) {
-        $error = "جميع الحقول مطلوبة";
+        $error = "All fields are required";
     } else {
         $name        = Validator::sanitize($_POST['name']);
         $price       = Validator::sanitize($_POST['price']);
@@ -21,38 +21,36 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $category_id = Validator::sanitize($_POST['category_id']);
 
         if (!Validator::validateProductName($name)) {
-            $error = "اسم المنتج غير صالح.";
+            $error = "Invalid product name.";
         } elseif (!Validator::validatePrice($price)) {
-            $error = "السعر غير صالح.";
+            $error = "The price is invalid.";
         } elseif (!Validator::validateStatus($status)) {
-            $error = "الحالة غير صالحة.";
+            $error = "Status is invalid.";
         } elseif (!Validator::validateCategoryId($category_id)) {
-            $error = "معرف الفئة غير صالح.";
-        } elseif ($db->check_product_name_exists($name)) {
-            $error = "اسم المنتج موجود بالفعل.";
+            $error = "Invalid class ID.";
+    
         } else {
             $image_path = '';
             if (isset($_FILES['product_image']) && $_FILES['product_image']['error'] === UPLOAD_ERR_OK) {
                 $allowed_types = ['image/jpeg', 'image/png', 'image/gif'];
                 if (!in_array($_FILES['product_image']['type'], $allowed_types)) {
-                    $error = "أنواع الملفات المسموحة: JPEG, PNG, GIF.";
+                    $error = "Allowed file types: JPEG, PNG, GIF.";
                 } elseif ($_FILES['product_image']['size'] > 2 * 1024 * 1024) {
-                    $error = "حجم الملف يجب أن يكون أقل من 2MB";
+                    $error = "حFile size must be less than 2MB";
                 } else {
                     $image_path = 'Images/' . basename($_FILES['product_image']['name']);
                     if (!move_uploaded_file($_FILES['product_image']['tmp_name'], $image_path)) {
-                        $error = "حدث خطأ أثناء رفع صورة المنتج";
+                        $error = "An error occurred while uploading the product image.";
                     }
                 }
             }
-
             if (empty($error)) {
                 $inserted = $db->addProduct($name, $price, $category_id, $status, $image_path);
                 if ($inserted) {
                     header("Location: index.php?success=1");
                     exit();
                 } else {
-                    $error = "حدث خطأ أثناء إضافة المنتج";
+                    $error = "An error occurred while adding the product";
                 }
             }
         }

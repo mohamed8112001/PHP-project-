@@ -1,74 +1,111 @@
 <?php
+include_once('config.php');
+ini_set('display_errors', '1');
+ini_set('display_startup_errors', '1');
+error_reporting(E_ALL);
 class Database {
+    public $pdo;
+    public function __construct() {
+        global $host, $database, $username, $password; 
+        
+        try {
+            $dsn = "mysql:host=$host;dbname=$database;charset=utf8mb4";
+            $this->pdo = new PDO($dsn, $username, $password);
+            $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        } catch (PDOException $e) {
+            die("Database connection failed: " . $e->getMessage());
+        }
+    }
+
+    public function getConnection() {
+        return $this->pdo; 
+    }
+    public function delete($tablename, $conditions) {
+        global $pdo;
+        
+        $whereClause = implode(" AND ", array_map(fn($key) => "$key = :$key", array_keys($conditions)));
     
-    protected $pdo;
-    public function __construct($pdo) {
-        $this->pdo = $pdo;
+
+        $sql = "DELETE FROM $tablename WHERE $whereClause";
+        $stmt = $pdo->prepare($sql);
+
+        $stmt->execute($conditions);
+    
+        return $stmt->rowCount(); 
     }
 
-    public function insert($table, $data) {
-        $columns = implode(', ', array_keys($data));
-        $placeholders = implode(', ', array_fill(0, count($data), '?'));
-        $stmt = $this->pdo->prepare("INSERT INTO $table ($columns) VALUES ($placeholders)");
-        return $stmt->execute(array_values($data));
-    }
+    public function select($tablename, $conditions = [], $fetchAll = true) {
 
-    public function select($table, $conditions = [], $columns = '*') {
-        $sql = "SELECT $columns FROM $table";
-        $params = [];
-        
-        if (!empty($conditions)) {
-            $where = [];
-            foreach ($conditions as $key => $value) {
-                $where[] = "$key = ?";
-                $params[] = $value;
+        try {
+            $sql = "SELECT * FROM $tablename";
+            if (!empty($conditions)) {
+                $whereClauses = [];
+                foreach ($conditions as $column => $value) {
+                    $whereClauses[] = "$column = :$column";
+                }
+                $sql .= " WHERE " . implode(" AND ", $whereClauses);
             }
-            $sql .= " WHERE " . implode(' AND ', $where);
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute($conditions);
+            return $fetchAll ? $stmt->fetchAll(PDO::FETCH_ASSOC) : $stmt->fetch(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            return "Error in select: " . $e->getMessage();
         }
-        
+    }
+
+
+    public function insert($tablename, $columns, $values) {
+        if (count($columns) !== count($values)) {
+            throw new Exception("Number of columns does not match number of values.");
+        }
+
+        $placeholders = array_map(fn($col) => ":$col", $columns);
+        $columnsStr = implode(', ', $columns);
+        $placeholdersStr = implode(', ', $placeholders);
+
+        $sql = "INSERT INTO $tablename ($columnsStr) VALUES ($placeholdersStr)";
         $stmt = $this->pdo->prepare($sql);
+
+        $params = array_combine($placeholders, $values);
         $stmt->execute($params);
-        return $stmt->fetchAll();
+
+        return $stmt->rowCount();
     }
 
-    public function update($table, $data, $conditions) {
-        $set = [];
-        $params = [];
-        
-        foreach ($data as $key => $value) {
-            $set[] = "$key = ?";
-            $params[] = $value;
-        }
-        
-        $where = [];
-        foreach ($conditions as $key => $value) {
-            $where[] = "$key = ?";
-            $params[] = $value;
-        }
-        
-        $sql = "UPDATE $table SET " . implode(', ', $set) . " WHERE " . implode(' AND ', $where);
-        $stmt = $this->pdo->prepare($sql);
-        return $stmt->execute($params);
-    }
+    
 
-    public function delete($table, $conditions) {
-        $where = [];
-        $params = [];
-        
-        foreach ($conditions as $key => $value) {
-            $where[] = "$key = ?";
-            $params[] = $value;
-        }
-        
-        $sql = "DELETE FROM $table WHERE " . implode(' AND ', $where);
-        $stmt = $this->pdo->prepare($sql);
-        return $stmt->execute($params);
-    }
 
-    public function query($sql, $params = []) {
-        $stmt = $this->pdo->prepare($sql);
-        $stmt->execute($params);
-        return $stmt;
+    public function update($table, $data, $where) {
+        
+        try {
+            $fields = [];
+            $values = [];
+    
+            foreach ($data as $column => $value) {
+                $fields[] = "$column = ?";
+                $values[] = $value;
+            }
+    
+            $setClause = implode(', ', $fields);
+    
+            $whereClause = [];
+            foreach ($where as $column => $value) {
+                $whereClause[] = "$column = ?";
+                $values[] = $value;
+            }
+    
+            $whereClauseString = implode(' AND ', $whereClause);
+    
+            $sql = "UPDATE $table SET $setClause WHERE $whereClauseString";
+            $stmt = $this->pdo->prepare($sql);
+    
+            return $stmt->execute($values);
+        } catch (PDOException $e) {
+            die("error in update " . $e->getMessage());
+        }
     }
+    
 }
+
+
 ?>

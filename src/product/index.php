@@ -7,7 +7,7 @@ error_reporting(E_ALL);
 include 'config.php';
 include 'business_logic.php';
 
-$database = new Database($pdo);
+$database = new Database();
 $db = new BusinessLogic($database);
 $products = $db->get_all_products();
 ?>
@@ -16,7 +16,7 @@ $products = $db->get_all_products();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>قائمة المنتجات</title>
+    <title>Products list</title>
     <link rel="stylesheet" href="style.css">
     <style>
         body { font-family: Arial, sans-serif; background: #f4f4f4; }
@@ -41,6 +41,7 @@ $products = $db->get_all_products();
                 <th>Photo</th>
                 <th>procedures</th>
             </tr>
+            
             <?php foreach ($products as $product) : ?>
                 <tr>
                     <td><?= $product['name'] ?></td>
@@ -56,7 +57,7 @@ $products = $db->get_all_products();
                     </td>
                     <td>
                         <a href="edit_product.php?id=<?= $product['id'] ?>">Modifi</a> |
-                        <a href="delete_product.php?id=<?= $product['id'] ?>" onclick="return confirm('هل أنت متأكد من الحذف؟')">Delete</a>
+                        <a href="delete_product.php?id=<?= $product['id'] ?>" onclick="return confirm('Are you sure you want to delete?')">Delete</a>
                     </td>
                 </tr>
             <?php endforeach; ?>

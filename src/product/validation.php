@@ -1,6 +1,5 @@
 <?php
 class Validator {
-
     public static function sanitize($data) {
         return trim(htmlspecialchars($data, ENT_QUOTES, 'UTF-8'));
     }
