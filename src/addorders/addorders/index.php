@@ -12,11 +12,10 @@ error_reporting(E_ALL);
     <title>Make Order</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="index.css">
+    <!-- <link rel="stylesheet" href="index.css"> -->
 </head>
 <body>
 
-    <?php include __DIR__ . '/views/layout/header.php';?>
     <div class="container py-4">
         <div class="row">
             <div class="col-md-5">

@@ -4,7 +4,6 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 ?>
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,12 +19,11 @@ error_reporting(E_ALL);
 
         $controller = new ProductController();
         $orderController = new OrderController();
-        $products=$controller->getAllProduct();
+        $products = $controller->getAllProduct();
 
-        foreach ($products  as $product){
-
+        foreach ($products as $product) {
             $res = $orderController->isLimitedOrpopular($product);
-            echo '<div class="product-grid-item">';
+            echo '<div class="product-grid-item" data-product-id="' . $product->id . '">';
 
             if ($res === "popular") {
                 echo '<span class="product-badge product-popular">Popular</span>';
@@ -44,6 +42,5 @@ error_reporting(E_ALL);
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    
 </body>
 </html>

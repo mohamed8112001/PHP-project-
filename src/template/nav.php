@@ -29,7 +29,7 @@
                 <!-- Navigation Links -->
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link " href="#" data-tooltip="Go to Home"><i class="fas fa-home me-1"></i>Home</a>
+                        <a class="nav-link " href="../addorders/index.php" data-tooltip="Go to Home"><i class="fas fa-home me-1"></i>Home</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="../product/index.php" data-tooltip="View Products"><i class="fas fa-coffee me-1"></i>Products</a>

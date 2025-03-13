@@ -11,6 +11,7 @@
             box-sizing: border-box;
             font-family: "Open Sans", sans-serif;
         }
+        
         body {
             display: flex;
             align-items: center;

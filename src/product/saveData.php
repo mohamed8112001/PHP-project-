@@ -21,7 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         try {
             $db = new Database();
-            $category = new Category($db);
+            $category = new Category();
 
             $category->insertCategory($name);
 
