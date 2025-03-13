@@ -16,6 +16,20 @@ class Orders
 		return $this->db->select($sql,[':userId'=>$userId, ':dateFrom'=> date($dateFrom), ':dateTo'=> date($dateTo)]);			
 	}
 
+
+
+	// public function userOrders($userId,$dateFrom,$dateTo){
+
+	// 	echo "1";
+	// 	$tablename= "orders o JOIN user u ON o.user_id = u.id JOIN order_product op ON o.id = op.order_id JOIN product p ON op.product_id = p.id";
+	// 	$conditions= ["o.user_id" =>$userId,"DATE(o.date) BETWEEN '{$dateFrom}' AND '{$dateTo}'"=>null];
+	// 	$columns=["o.id AS order_id","o.date AS order_date","o.status AS order_status","SUM(op.quantity * p.price) AS order_amount"];
+	// 	$groupBy= 'o.id';
+
+	// 	return $this->db->select($tablename, $conditions, true, $columns, $groupBy );
+	// }
+
+
 	public function userOrderProducts($orderId){
 
 		$sql = "SELECT p.name AS product_name,
@@ -57,6 +71,7 @@ class Orders
 	public function getAllUsers(){
 		return $this->db->selectAll("user");
 	}
+
 
 	public function adminProcessingOrders(){
 

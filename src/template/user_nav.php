@@ -4,16 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PHP CoffeeCenter Ordering System</title>
+    <title>Coffee Center</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="templates/styleTemplate.css">
-    <!-- <link rel="stylesheet" href="templates/stylee.css"> -->
-
+    <link rel="stylesheet" href="styleTemplate.css">
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg sticky-top navbar-dark coffee-navbar">
+    <nav class="navbar navbar-expand-lg sticky-top navbar-dark">
         <div class="container">
             <!-- Enhanced Branding with Logo -->
             <a class="navbar-brand d-flex align-items-center" href="#">
@@ -31,25 +29,12 @@
                 <!-- Navigation Links -->
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link " href="Home.php" data-tooltip="Go to Home"><i
-                                class="fas fa-home me-1"></i>Home</a>
+                        <a class="nav-link " href="../addorders/index.php" data-tooltip="Go to Home"><i class="fas fa-home me-1"></i>Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#" data-tooltip="View Products"><i
-                                class="fas fa-coffee me-1"></i>Products</a>
+                        <a class="nav-link" href="../Orders/userOrders.php" data-tooltip="View Products"><i class="fas fa-coffee me-1"></i>My Orders</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="All_Users.php" data-tooltip="Manage Users"><i
-                                class="fas fa-users me-1"></i>Users</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#" data-tooltip="Manual Order Entry"><i
-                                class="fas fa-pen me-1"></i>Manual Order</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="../Orders/adminOrders.php" data-tooltip="View Checks"><i
-                                class="fas fa-receipt me-1"></i>Checks</a>
-                    </li>
+                 
                 </ul>
                 <!-- Right Side: Search and User Dropdown -->
                 <div class="d-flex align-items-center">
@@ -72,12 +57,15 @@
                                 <hr class="dropdown-divider">
                             </li>
                             <li>
-                                <a class="dropdown-item text-danger" href="#">
-                                    <i class="fas fa-sign-out-alt me-2"></i>Logout</a>
+                            <a class="dropdown-item text-danger" href="../user/Home.php">
+                            <i class="fas fa-sign-out-alt me-2"></i>Logout</a>
                             </li>
                         </ul>
                     </div>
                 </div>
             </div>
+            
         </div>
     </nav>
+
+    

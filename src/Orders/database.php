@@ -8,7 +8,7 @@ class Database
 	public function __construct()
 	{
 		try {
-			$this->config= new Config("localhost", "nada", "123456", "Cafeteria");
+			$this->config= new Config("localhost", "mohamed", "Mohamed@8112001", "mydatabase");
 			$this->conn = new PDO("mysql:host=" . $this->config->getHost() . ";dbname=" . $this->config->getDatabase() , $this->config->getUser(), $this->config->getPassword());
 			$this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		} catch(PDOException $e) {
@@ -49,8 +49,6 @@ class Database
          return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }	
 
-<<<<<<< HEAD
-=======
 
 	public function update($table, $columns, $values, $condition)
 	{
@@ -65,7 +63,6 @@ class Database
 		}
 	}
 
->>>>>>> 0c9b7c7 (Admin orders back-end)
 }
 
 ?>

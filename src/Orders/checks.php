@@ -8,34 +8,20 @@ error_reporting(E_ALL);
 
 include_once('businessLogic.php');
 $usersChecks = new Orders();
+include_once('../template/nav.php');
 
 ?>
 <head>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-
-<style>
-        .hidden {
-            display: none;
-        }
-        .toggle-btn {
-            cursor: pointer;
-            font-size: 18px;
-            font-weight: bold;
-        }
-        .order-details {
-            border-top: 1px solid #ddd;
-            padding: 10px;
-            background: #f9f9f9;
-        }
-    </style>
+<link rel="stylesheet" href="assets/style.css">
 
 </head>
 
+<body>
+<div class="orders-container">
+    <h1 class="page-title animate__animated animate__fadeIn">Checks</h1>
 
-<h1>Checks</h1> </br></br></br>
-
-
+   
 <?php 
 if (isset($_SESSION['error']))
 {
@@ -44,27 +30,32 @@ if (isset($_SESSION['error']))
 }
 ?>
 
-<form action="dateValidation.php" method="GET">
-    <input type="hidden" name="path" value="2">
-	<input type="date" id="dateFrom" name="dateFrom" placeholder="Date from" class="datepicker" required>
-	<span>&emsp; &emsp;</span>
-	<input type="date" id="dateTo" name="dateTo" placeholder="Date to" class="datepicker" required>
-	<span>&emsp;</span>
-    <input type="submit" id="submit" value="Filter" >
-    </br></br>
-    <select name="user" id="user"  >
-    <option value="">User</option> 
-	<?php
-		$users=$usersChecks->getAllUsers();
-		foreach ($users as $user) {
-			echo "<option value='".$user['id']."'>".$user['name']."</option>";
-        	}
-	?>
-	</select>
-</form>
+<div class="filter-container animate__animated animate__fadeIn">
+        <form action="dateValidation.php" method="GET" class="w-100 d-flex flex-wrap align-items-center gap-3">
+            <input type="hidden" name="path" value="2">
+            <input type="date" id="dateFrom" name="dateFrom" placeholder="Date from" class="date-input " required>
+
+            <input type="date" id="dateTo" name="dateTo" placeholder="Date to" class="date-input" required>
+            <select name="user" id="user"   >
+               <option value="">User</option> 
+            	<?php
+		            $users=$usersChecks->getAllUsers();
+		            foreach ($users as $user) {
+			            echo "<option value='".$user['id']."'>".$user['name']."</option>";
+        	        }
+	            ?>  
+        	</select>
+            <button type="submit" id="submit" class="filter-btn">
+                <i class="fas fa-filter me-2"></i>Filter Orders
+            </button>
+            
+            
+        </form>
+    </div>
 
 
-<table> 
+
+<table class="orders-table animate__animated animate__fadeIn"> 
 	<tr>
 		<th>Name</th>
 		<th>Total amount</th>
@@ -90,43 +81,40 @@ if($userID)
  
 
 foreach ($checks as $check) {
-    echo "<tr>";
+    echo "<tr class='order-row'>";
     echo "<td><span class='toggle-btn' onclick='toggleDetails({$check['user_id']})'> + </span>{$check['username']}</td>";
     echo "<td>{$check['total_spent']}</td>";
     echo "</tr>";
 
-    echo "<tr id='details-{$check['user_id']}' class='hidden'>
-            <td colspan='2'>
-                <table id='orders-{$check['user_id']}' class='hidden'>
-                        <tr>
-                            <th>Order Date</th>
-                            <th>Amount</th>
-                        </tr>";
+    echo "<tr id='details-{$check['user_id']}' class='hidden order-details-row'>";
+    echo "<td colspan='2' class='order-details'>";
+    echo "<table id='orders-{$check['user_id']}' class='orders-subtable'>";
+    echo "<tr>";
+    echo "<th>Order Date</th>";
+    echo "<th>Amount</th>";
+    echo "</tr>";
 
     $orders = $usersChecks->userOrdersChecks($check['user_id'], $dateFrom, $dateTo);
     foreach ($orders as $order) {
-        echo "<tr>";
+        echo "<tr class='order-row'>";
         echo "<td><span class='toggle-btn' onclick='toggleDetails({$order['order_id']})'> + </span>{$order['order_date']}</td>";
         echo "<td>{$order['order_amount']}</td>";
         echo "</tr>";
         
-        echo "<tr id='details-{$order['order_id']}' class='hidden'>
-                <td colspan='2' class='order-details'>";
+        echo "<tr id='details-{$order['order_id']}' class='hidden order-details-row'>";
+        echo "<td colspan='2' class='order-details'>";
+        echo "<div class='products-container'>";
 
         $products = $usersChecks->userOrderProducts($order['order_id']);
-        foreach($products as $product)
-    	{
-	    	echo "<span>{$product['product_name']} - {$product['product_price']}</span>";
-		    echo "&emsp; &emsp;";
-	    }
-	    echo" </br>";
-	    foreach($products as $product)
-	    {
-		    echo "<span>{$product['product_order_quantity']}</span>";
-		    echo "&emsp; &emsp;&emsp; &emsp;&emsp; &emsp;&emsp;";
-	    }
+        foreach($products as $product) {
+            echo "<div class='product-item'>";
+            echo "<div class='product-name'>{$product['product_name']}</div>";
+            echo "<div class='product-price'>EGP " . number_format($product['product_price'], 2) . "</div>";
+            echo "<div class='product-quantity'>{$product['product_order_quantity']}</div>";
+            echo "</div>";
+        }
 
-        echo "</td></tr>";
+        echo "</div></td></tr>";
     }
 
     echo "</table></td></tr>";
@@ -136,32 +124,10 @@ foreach ($checks as $check) {
 
 
 
-<script>
-
-function toggleDetails(id) {
-    var detailsRow = document.getElementById("details-" + id);
-    var btn = document.querySelector("[onclick='toggleDetails(" + id + ")']");
-
-    if (detailsRow) {
-        detailsRow.classList.toggle("hidden");
-        
-        var ordersTable = detailsRow.querySelector("table");
-        if (ordersTable) {
-            ordersTable.classList.toggle("hidden");
-
-            var header = ordersTable.querySelector("thead");
-            if (header) {
-                header.classList.toggle("hidden");
-            }
-        }
-        btn.textContent = detailsRow.classList.contains("hidden") ? "+" : "-";
-    }
-}
-
-    flatpickr(".datepicker", { dateFormat: "Y-m-d" , allowInput: true, maxDate: "today" });
-
+</body>
 	
-</script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="assets/javaS.js"></script>
 
 
 
