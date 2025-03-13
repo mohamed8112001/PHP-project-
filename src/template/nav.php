@@ -4,10 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PHP CoffeeCenter Ordering System</title>
+    <title>Coffee Center</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="styleTemplate.css">
+    <link rel="stylesheet" href="../template/styleTemplate.css">
 </head>
 
 <body>
@@ -29,19 +29,19 @@
                 <!-- Navigation Links -->
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active-link" href="#" data-tooltip="Go to Home"><i class="fas fa-home me-1"></i>Home</a>
+                        <a class="nav-link " href="#" data-tooltip="Go to Home"><i class="fas fa-home me-1"></i>Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#" data-tooltip="View Products"><i class="fas fa-coffee me-1"></i>Products</a>
+                        <a class="nav-link" href="../product/index.php" data-tooltip="View Products"><i class="fas fa-coffee me-1"></i>Products</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#" data-tooltip="Manage Users"><i class="fas fa-users me-1"></i>Users</a>
+                        <a class="nav-link" href="../user/All_Users.php" data-tooltip="Manage Users"><i class="fas fa-users me-1"></i>Users</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#" data-tooltip="Manual Order Entry"><i class="fas fa-pen me-1"></i>Manual Order</a>
+                        <a class="nav-link" href="../Orders/adminOrders.php" data-tooltip="Manual Order Entry"><i class="fas fa-pen me-1"></i>Manual Order</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#" data-tooltip="View Checks"><i class="fas fa-receipt me-1"></i>Checks</a>
+                        <a class="nav-link" href="../Orders/checks.php" data-tooltip="View Checks"><i class="fas fa-receipt me-1"></i>Checks</a>
                     </li>
                 </ul>
                 <!-- Right Side: Search and User Dropdown -->
@@ -65,7 +65,7 @@
                                 <hr class="dropdown-divider">
                             </li>
                             <li>
-                                <a class="dropdown-item text-danger" href="#">
+                                <a class="dropdown-item text-danger" href="../user/Home.php">
                                 <i class="fas fa-sign-out-alt me-2"></i>Logout</a>
                             </li>
                         </ul>

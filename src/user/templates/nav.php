@@ -47,7 +47,7 @@
                                 class="fas fa-pen me-1"></i>Manual Order</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#" data-tooltip="View Checks"><i
+                        <a class="nav-link" href="../Orders/adminOrders.php" data-tooltip="View Checks"><i
                                 class="fas fa-receipt me-1"></i>Checks</a>
                     </li>
                 </ul>

@@ -1,8 +1,8 @@
 <?php
 $host = 'localhost';
-$username = 'root';
-$password = 'qw12QW!@123';
-$database = 'Cafeteria';
+$username = 'mohamed';
+$password = 'Mohamed@8112001';
+$database = 'mydatabase';
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$database;charset=utf8mb4", $username, $password, [
         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,

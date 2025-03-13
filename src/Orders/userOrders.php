@@ -6,7 +6,7 @@ error_reporting(E_ALL);
 // if(empty($_SESSION['user_name'])|| $_SESSION['user_role']=='Admin' )
 // 	header("Location: $location ");
 
-include_once('nav.php');
+include_once('../template/user_nav.php');
 
 ?>
 <head>
@@ -138,12 +138,14 @@ include_once('nav.php');
     <?php endif; ?>
 
 </div>
-?>
-</body>
-	
+?>	
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script src="assets/javaS.js"></script>
+<!-- </body> -->
 
 
 
+<?php
+include_once('../template/footer.php')
+?>
 

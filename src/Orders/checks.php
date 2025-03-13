@@ -8,7 +8,7 @@ error_reporting(E_ALL);
 
 include_once('businessLogic.php');
 $usersChecks = new Orders();
-include_once('nav.php');
+include_once('../template/nav.php');
 
 ?>
 <head>

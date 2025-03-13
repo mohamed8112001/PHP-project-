@@ -1,16 +1,10 @@
-<?php
-session_start();
-//if(empty($_SESSION['user_name']))
-	//header("Location: $location ");
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PHP CoffeeCenter Ordering System</title>
+    <title>Coffee Center</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="styleTemplate.css">
@@ -35,20 +29,12 @@ session_start();
                 <!-- Navigation Links -->
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active-link" href="#" data-tooltip="Go to Home"><i class="fas fa-home me-1"></i>Home</a>
+                        <a class="nav-link " href="../addorders/index.php" data-tooltip="Go to Home"><i class="fas fa-home me-1"></i>Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#" data-tooltip="View Products"><i class="fas fa-coffee me-1"></i>Products</a>
+                        <a class="nav-link" href="../Orders/userOrders.php" data-tooltip="View Products"><i class="fas fa-coffee me-1"></i>My Orders</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#" data-tooltip="Manage Users"><i class="fas fa-users me-1"></i>Users</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#" data-tooltip="Manual Order Entry"><i class="fas fa-pen me-1"></i>Manual Order</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#" data-tooltip="View Checks"><i class="fas fa-receipt me-1"></i>Checks</a>
-                    </li>
+                 
                 </ul>
                 <!-- Right Side: Search and User Dropdown -->
                 <div class="d-flex align-items-center">
@@ -58,7 +44,7 @@ session_start();
                             id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                             <img src="resource/man.png" class="rounded-circle me-2 user-avatar" alt="User"
                                 style="width: 35px; height: 35px;">
-                            <span class="username"><?php $_SESSION['user_name']?></span>
+                            <span class="username">Admin</span>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end shadow-sm">
                             <li>
@@ -71,12 +57,15 @@ session_start();
                                 <hr class="dropdown-divider">
                             </li>
                             <li>
-                                <a class="dropdown-item text-danger" href="">
-                                <i class="fas fa-sign-out-alt me-2"></i>Logout</a>
+                            <a class="dropdown-item text-danger" href="../user/Home.php">
+                            <i class="fas fa-sign-out-alt me-2"></i>Logout</a>
                             </li>
                         </ul>
                     </div>
                 </div>
             </div>
+            
         </div>
     </nav>
+
+    

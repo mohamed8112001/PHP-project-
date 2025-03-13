@@ -4,7 +4,7 @@ ini_set('display_errors', '1');
 ini_set('display_startup_errors', '1');
 error_reporting(E_ALL); 
 
-include_once('nav.php');
+include_once('../template/nav.php');
 
 ?>
 
@@ -71,7 +71,9 @@ echo "</table>";
 #include_once('template/footer.php');
 ?>
 	
-
+<?php
+include_once('../template/footer.php')
+?>
 </body>
 	
 <script src="assets/javaS.js"></script>

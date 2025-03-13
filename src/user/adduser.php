@@ -1,11 +1,10 @@
 <?php
-session_start(); // Start session for potential future use
+session_start();
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
-
 include_once('blogic.php');
 
-$blogic = new User(); // For fetching rooms
+$blogic = new User();
 ?>
 
 <!DOCTYPE html>
@@ -15,14 +14,14 @@ $blogic = new User(); // For fetching rooms
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add User - PHP CoffeeCenter</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="stylee.css">
     <style>
        
-
     </style>
 </head>
 <body class="admin-page">
-    <?php include_once('templates/nav.php'); ?>
+    <?php include_once('../template/nav.php'); ?>
 
     <div class="page-container">
         <form action="validation.php" method="post" enctype="multipart/form-data" id="registrationForm" class="admin-form">
@@ -99,13 +98,13 @@ $blogic = new User(); // For fetching rooms
             </div>
 
             <div class="button-group">
-                <input type="submit" name="send" style="background: #8B4513;" value="Add User">
+                <input type="submit" name="send" value="Add User">
                 <a href="Home.php" class="cancel-button">Cancel</a>
             </div>
         </form>
     </div>
 
-    <?php include_once('templates/footer.php'); ?>
+    <?php include_once('../template/footer.php'); ?>
 
     <script>
         // Navbar Toggle
@@ -138,7 +137,6 @@ $blogic = new User(); // For fetching rooms
             const password = document.getElementById('password').value;
             const cpassword = document.getElementById('Cpassword').value;
             const room = document.getElementById('room-no').value;
-            const ext = document.getElementById('ext').value;
             const file = document.getElementById('Profile_Picture').files[0];
 
             document.querySelectorAll('.error').forEach(error => error.textContent = '');
@@ -174,11 +172,6 @@ $blogic = new User(); // For fetching rooms
                 isValid = false;
             }
 
-            if (ext && !/^\d+$/.test(ext)) {
-                document.getElementById('ext-error').textContent = 'Extension must be a number.';
-                isValid = false;
-            }
-
             if (file && !['image/jpeg', 'image/png', 'image/gif'].includes(file.type)) {
                 document.getElementById('file-error').textContent = 'Only JPG, PNG, or GIF allowed.';
                 isValid = false;
@@ -202,11 +195,3 @@ $blogic = new User(); // For fetching rooms
     </script>
 </body>
 </html>
-
-
-
-
-
-
-
-

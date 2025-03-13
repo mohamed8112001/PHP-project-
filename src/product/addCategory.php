@@ -4,8 +4,7 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 include_once('business_logic.php');
-include_once('templates/header.php');
-
+include_once('../template/nav.php');
 ?>
 
 <!DOCTYPE html>
@@ -14,134 +13,38 @@ include_once('templates/header.php');
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add User</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="templates/style.css">
-    <style></style>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="templates/styleTemplate.css">
 </head>
-<body>
-
-
-    <div class="page-container">
-    <form action="saveData.php" method="post"  id="registrationForm">
-            <div class="form-header">Add New Category</div>
-
-            <?php
-            // if (!empty($success_message)) {
-            //     echo "<div class='success-message'>$success_message</div>";
-            //     echo "<script>
-            //             setTimeout(() => {
-            //                 window.location.href = 'index.php'; // Redirect to dashboard, not self
-            //             }, 2000);
-            //           </script>";
-            // }
-
-            if (!empty($errors)) {
-                echo "<div class='error-container'>";
-                foreach ($errors as $error) {
-                    echo "<p class='error-message'>$error</p>";
-                }
-                echo "</div>";
-            }
-            ?>
-
-            <div class="form-group">
-                <label for="name">Name <span class="required">*</span></label>
-                <input type="text" name="name" id="name" placeholder="Enter your name" value="<?php echo htmlspecialchars($name ?? ''); ?>" required aria-describedby="name-error">
-                <span class="error" id="name-error"></span>
+<body style="background-color: var(--light);">
+    <div class="container mt-5">
+        <div class="card shadow-lg" style="background: var(--light); border: 2px solid var(--primary);">
+            <div class="card-header text-white text-center" style="background: var(--primary);">
+                <h2>Add New Category</h2>
             </div>
-
-            <div class="button-group">
-                <input type="submit" name="send" value="Add User">
-            </div> 
-        </form>
+            <div class="card-body">
+                <?php if (!empty($errors)): ?>
+                    <div class="alert alert-danger">
+                        <?php foreach ($errors as $error): ?>
+                            <p><?= $error ?></p>
+                        <?php endforeach; ?>
+                    </div>
+                <?php endif; ?>
+                <form action="saveData.php" method="post" id="registrationForm">
+                    <div class="mb-3">
+                        <label class="form-label text-dark">Name <span class="text-danger">*</span></label>
+                        <input type="text" name="name" id="name" class="form-control" required placeholder="Enter your name" value="<?= htmlspecialchars($name ?? '') ?>" style="border-color: var(--primary);">
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" name="send" class="btn btn-secondary text-white" style="background: var(--secondary); border-color: var(--secondary);">
+                            <i class="fas fa-user-plus"></i> Add Category
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
-
-    <script>
-        // Navbar Toggle
-        const mobileMenu = document.getElementById('mobile-menu');
-        const navMenu = document.querySelector('.nav-menu');
-        mobileMenu.addEventListener('click', () => {
-            mobileMenu.classList.toggle('active');
-            navMenu.classList.toggle('active');
-        });
-
-        // Dynamic Navbar Background on Scroll
-        window.addEventListener('scroll', () => {
-            const navbar = document.querySelector('.navbar');
-            if (window.scrollY > 50) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
-            }
-        });
-        
-
-        // Client-side Validation
-        document.getElementById('registrationForm').addEventListener('submit', function(e) {
-            let isValid = true;
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-            const cpassword = document.getElementById('Cpassword').value;
-            const room = document.getElementById('room-no').value;
-            const file = document.getElementById('Profile_Picture').files[0];
-
-            document.querySelectorAll('.error').forEach(error => error.textContent = '');
-
-            if (name.length < 3) {
-                document.getElementById('name-error').textContent = 'Name must be at least 3 characters.';
-                isValid = false;
-            }
-
-            if (!email.includes('@') || !email.includes('.')) {
-                document.getElementById('email-error').textContent = 'Invalid email format.';
-                isValid = false;
-            }
-
-            if (password.length < 8) {
-                document.getElementById('password-error').textContent = 'Password must be at least 8 characters.';
-                isValid = false;
-            } else if (!/[A-Z]/.test(password)) {
-                document.getElementById('password-error').textContent = 'Password must contain an uppercase letter.';
-                isValid = false;
-            } else if (!/[0-9]/.test(password)) {
-                document.getElementById('password-error').textContent = 'Password must contain a number.';
-                isValid = false;
-            }
-
-            if (password !== cpassword) {
-                document.getElementById('cpassword-error').textContent = 'Passwords do not match.';
-                isValid = false;
-            }
-
-            if (!room) {
-                document.getElementById('room-error').textContent = 'Please select a room.';
-                isValid = false;
-            }
-
-            if (file && !['image/jpeg', 'image/png', 'image/gif'].includes(file.type)) {
-                document.getElementById('file-error').textContent = 'Only JPG, PNG, or GIF allowed.';
-                isValid = false;
-            }
-
-            if (!isValid) {
-                e.preventDefault();
-            }
-        });
-
-        // Toggle Password Visibility
-        document.querySelectorAll('.toggle-password').forEach(button => {
-            button.addEventListener('click', () => {
-                const input = button.previousElementSibling;
-                input.type = input.type === 'password' ? 'text' : 'password';
-                button.textContent = input.type === 'password' ? '👁️' : '🙈';
-            });
-        });
-    </script>
-
-
-    </div>
-
-   
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
