@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PHP CoffeeCenter Ordering System</title>
+    <link rel="stylesheet" href="Register.css">
+
+</head>
+<body>
+        <header>
+            <h1>Welcome to Coffee Center</h1>
+
+            <nav class="navbar">
+                <ul>
+                    <li><a href="index.php" class="nav-link">Add User</a></li>
+                    <li><a href="about.php" class="nav-link">About</a></li>
+                    <li><a href="contact.php" class="nav-link">Contact</a></li>
+                </ul>
+            </nav>
+        </header>
+        <main>
+            <div class="container_form card">
+                <form method="POST" action="Loginback.php">
+                    <label for="Username">Username</label>
+                    <input type="text" name="Username" id="Username" required>
+                    <label for="Password">Password</label>
+                    <input type="password" name="Password" id="Password" required>
+                    <button type="submit" class="btn-primary">Login</button>
+                </form>
+                <a href="Forget_password.html" id="link_log">Forget Password</a>
+            </div>
+        </main>
+        <footer>
+            <p>All copy right is abroved &COPY;</p>
+        </footer>
+    <script src="Login.js"></script>
+</body>
+</html>

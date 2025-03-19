@@ -1,0 +1,148 @@
+/* Register.css */
+
+/* Coffee Theme Variables */
+:root {
+    --primary: #8B4513;    /* Coffee Brown */
+    --secondary: #DAA520;  /* Golden Coffee */
+    --light: #FFF8E7;     /* Cream */
+    --dark: #3C2F2F;      /* Dark Roast */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Open Sans", sans-serif;
+}
+
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    width: 100%;
+    padding: 0 10px;
+}
+
+body::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: url("./images/background2.jpg"), var(--dark);
+    background-position: center;
+    background-size: cover;
+    z-index: -1;
+}
+
+.wrapper {
+    width: 400px;
+    border-radius: 8px;
+    text-align: center;
+    border: 1px solid rgba(255, 248, 231, 0.5); /* Using Cream with opacity */
+    backdrop-filter: blur(9px);
+    -webkit-backdrop-filter: blur(9px);
+    padding: 20px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: var(--light);
+}
+
+.input-field {
+    position: relative;
+    border-bottom: 2px solid var(--primary);
+    margin: 15px 0;
+}
+
+.input-field label {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    color: var(--light);
+    font-size: 16px;
+    pointer-events: none;
+    transition: 0.15s ease;
+}
+
+.input-field input {
+    width: 100%;
+    height: 40px;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    color: var(--light);
+}
+
+.input-field input:focus ~ label,
+.input-field input:valid ~ label {
+    font-size: 0.8rem;
+    top: 10px;
+    transform: translateY(-120%);
+    color: var(--secondary);
+}
+
+.forget {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 15px 0 35px 0;
+    color: var(--light);
+}
+
+#remember {
+    accent-color: var(--light);
+}
+
+.forget label {
+    display: flex;
+    align-items: center;
+}
+
+.forget label p {
+    margin-left: 8px;
+}
+
+.wrapper a {
+    color: var(--light);
+    text-decoration: none;
+}
+
+.wrapper a:hover {
+    color: var(--secondary);
+    text-decoration: underline;
+}
+
+button {
+    background: var(--primary);
+    color: var(--light);
+    font-weight: 600;
+    border: none;
+    padding: 12px 20px;
+    cursor: pointer;
+    border-radius: 3px;
+    font-size: 16px;
+    border: 2px solid transparent;
+    transition: 0.3s ease;
+}
+
+button:hover {
+    color: var(--light);
+    border-color: var(--light);
+    background: rgba(139, 69, 19, 0.15); /* Coffee Brown with opacity */
+}
+
+.register {
+    text-align: center;
+    margin-top: 30px;
+    color: var(--light);
+}

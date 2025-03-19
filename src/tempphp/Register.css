@@ -1,0 +1,209 @@
+/* Register.css */
+
+/* Coffee Theme Variables */
+:root {
+    --primary: #8B4513;    /* Coffee Brown */
+    --secondary: #DAA520;  /* Golden Coffee */
+    --light: #FFF8E7;     /* Cream */
+    --dark: #3C2F2F;      /* Dark Roast */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: var(--light);
+    color: var(--dark);
+    line-height: 1.6;
+}
+
+/* Navbar Styling */
+header {
+    background: linear-gradient(to right, var(--dark), var(--primary));
+    padding: 1rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.navbar ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.navbar a {
+    color: var(--light);
+    text-decoration: none;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+.navbar a:hover {
+    color: var(--secondary);
+}
+
+.navbar a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 50%;
+    background: var(--secondary);
+    transition: all 0.3s ease;
+}
+
+.navbar a:hover::after {
+    width: 100%;
+    left: 0;
+}
+
+h1 {
+    color: var(--light);
+    font-size: 2rem;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Main Content */
+main {
+    padding: 2rem;
+    min-height: calc(100vh - 200px);
+}
+
+.container_form {
+    max-width: 500px;
+    margin: 0 auto;
+    background-color: white;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.container_form:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+label {
+    color: var(--dark);
+    font-weight: 600;
+}
+
+input, select {
+    padding: 0.75rem;
+    border: 2px solid var(--primary);
+    border-radius: 10px;
+    background: rgba(255, 248, 231, 0.5); /* Slightly transparent Cream */
+    color: var(--dark);
+    font-size: 1rem;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+input:focus, select:focus {
+    outline: none;
+    border-color: var(--secondary);
+    box-shadow: 0 0 5px rgba(218, 165, 32, 0.5);
+}
+
+button {
+    background-color: var(--primary);
+    color: var(--light);
+    padding: 1rem;
+    border: none;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    background-color: var(--secondary);
+    color: var(--dark);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 10px rgba(218, 165, 32, 0.3);
+}
+
+#link_log {
+    display: block;
+    text-align: center;
+    margin-top: 1.5rem;
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+#link_log:hover {
+    color: var(--secondary);
+    text-decoration: underline;
+}
+
+
+/* Footer */
+footer {
+    background-color: var(--dark);
+    color: var(--light);
+    text-align: center;
+    padding: 1rem;
+    width: 100%;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .navbar ul {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    main {
+        padding: 1rem;
+    }
+
+    .container_form {
+        padding: 1.5rem;
+        max-width: 100%;
+    }
+
+    input, select, button {
+        padding: 0.6rem;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1.2rem;
+    }
+
+    .container_form {
+        padding: 1rem;
+    }
+
+    button {
+        font-size: 1rem;
+    }
+
+    .navbar a {
+        padding: 0.5rem;
+    }
+}
