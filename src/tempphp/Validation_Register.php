@@ -19,7 +19,7 @@ class ValidationRegister
             throw new Exception('Username should not contain spaces');
         }
 
-        if (strlen($username) < 3 || strlen($username) > 20) {
+        if (strlen($username) < 3 || strlen($username) > 50) {
             throw new Exception('Username must be between 3 and 20 characters');
         }
 
@@ -152,5 +152,6 @@ class ValidationRegister
             throw new Exception('Room ID does not exist.');
         }
     }
+
 
 }

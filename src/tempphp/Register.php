@@ -1,3 +1,11 @@
+<?php
+include_once("mysqlconnection.php"); 
+include_once("logic.php"); 
+
+$queryDB = new Query_database($pdo);
+$rooms = $queryDB->getAllRooms();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -39,9 +47,16 @@
                 <input id="image" type="file" name="profile_image" id="profile_image" required>
 
                 <label for="room_id">Room ID</label>
-                <select name="room_id" id="room_id">
-                    <option value="">Select Option</option>
+                <select name="room_id" required>
+                    <option value="">-- Select a Room --</option>
+                    <?php foreach ($rooms as $room) : ?>
+                    <option value="<?= htmlspecialchars($room['id']) ?>">
+                        <?= htmlspecialchars($room['id']) ?> -
+                        <?= htmlspecialchars($room['number']) ?>
+                    </option>
+                    <?php endforeach; ?>
                 </select>
+
 
                 <input type="hidden" name="Role" value="user">
                 <button type="submit">Register</button>

@@ -6,7 +6,7 @@ try {
     $functions = new Query_database($pdo);
     $rooms = $functions->getAllRooms();
     ValidationRegister::setDatabaseConnection($pdo);
-
+    
 
 
     $Username       = $_POST['Username'] ?? '';
@@ -19,10 +19,7 @@ try {
     $Role           = $_POST['Role'] ?? 'User';
     $room_id        = $_POST['room_id'];
 
-    // ✅ التأكد من أن room_id المرسل موجود في القائمة
-    if (!in_array($room_id, $valid_room_ids)) {
-        throw new Exception("Invalid Room ID selected.");
-    }
+
 
     $profile_image = "default.jpg";
 
