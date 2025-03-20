@@ -1,3 +1,6 @@
+<?php
+include_once('blogic.php');
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -131,14 +134,14 @@
 
     <div class="wrapper">
         
-        <form action="">
+        <form action="validation.php" method="post">
             <h2>Login</h2>
             <div class="input-field">
-                <input type="text" id="email" required />
+                <input type="text" id="email"name="email" required />
                 <label for="email">Enter your email</label>
             </div>
             <div class="input-field">
-                <input type="password" id="password" required />
+                <input type="password" id="password" name="password" required />
                 <label for="password">Enter your password</label>
             </div>
             <div class="forget">
@@ -148,7 +151,7 @@
                 </label>
                 <a href="">Forgot password?</a>
             </div>
-            <button type="submit">Log In</button>
+            <button type="submit" name="login">Log In</button>
             <div class="register">
                 <p>Don't have an account? <a href="adduser.php">Register</a></p>
             </div>

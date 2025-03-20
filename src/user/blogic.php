@@ -17,7 +17,7 @@ class User {
     }
 
     public function getAllUsers() {
-        return $this->db->select('`user`'); // Backticks prevent reserved keyword issue
+        return $this->db->select('`user`'); 
     }
 
     public function getUserById($id) {
@@ -35,67 +35,39 @@ class User {
     public function insert_room($room_no,$ext) {
         return $this->db->insert('`room`',['number','ext'],[$room_no, $ext]);
     }
-    // public function insert_user($name, $email, $password, $profile_picture, $room_no, $role = 'user') {
-    //     $stmt = $this->db->getConnection()->prepare(
-    //         "INSERT INTO `user` (name, email, password, image_path, room_id, role) VALUES (?, ?, ?, ?, ?, ?)"
-    //     );
-    //     return $stmt->execute([$name, $email, $password, $profile_picture, $room_no, $role]);
-    //     // return $this->db->insert('`user`',['name', 'email', 'password', 'image_path', 'room_id', 'role'],[$name, $email, $password, $profile_picture, $room_no, $role]);
-    // }
+
 
     public function insert_user($name, $email, $password, $profile_picture, $room_no, $role = "user") {
-        // try {
-        //     $stmt = $this->db->getConnection()->prepare(
-        //         query: "INSERT INTO `user` (name, email, password, image_path, room_id, role) VALUES (?, ?, ?, ?, ?, ?)"
-        //         // 'INSERT INTO `user` (name, email, password, image_path, room_id, role) VALUES ("Mustafamohamed","mustafass@gmail.com","Mohamessd@8112001","dssd",1111,"user")'
-        //     );
-        //     $stmt->execute([$name, $email, $password, $profile_picture, $room_no, $role]);
-        //     echo "User inserted successfully!";
-        // } catch (PDOException $e) {
-        //     die("Insert failed: " . $e->getMessage());
-        // }
         return $this->db->insert('`user`',['name', 'email', 'password', 'image_path', 'room_id', 'role'],[$name, $email, $password, $profile_picture, $room_no, $role]);
 
     }
+// $tablename, $conditions = [], $fetchAll = true, $columns = [], $groupBy = ''
+    // public function login( $email, $password) {
+    //     return $this->db->select('user',"where email=? and password=?");
+
+    // }
+    public function login($email, $password) {
+        if (empty($email) || empty($password)) {
+            return false; // التأكد من أن البيانات ليست فارغة
+        }
+    
+        // تنفيذ الاستعلام في قاعدة البيانات
+        $result = $this->db->select('user', "WHERE email = ? AND password = ?", [$email, $password]);
+        
+        if ($result) {
+            // لو لقى النتيجة، يرجع بيانات المستخدم
+            return $result[0];
+        } else {
+            return false; // لو البيانات غلط
+        }
+    }
    
-    // public function insert_room($room_no, $ext) {
-    //     // Ensure room number is not empty or duplicate
-    //     if (empty($room_no)) {
-    //         throw new Exception("Error: Room number cannot be empty.");
-    //     }
     
-    //     // Check if the room number already exists
-    //     $stmt = $this->db->getConnection()->prepare("SELECT COUNT(*) FROM `room` WHERE `number` = ?");
-    //     $stmt->execute([$room_no]);
-    //     $count = $stmt->fetchColumn();
-    
-    //     if ($count > 0) {
-    //         throw new Exception("Error: Room number already exists.");
-    //     }
-    
-    //     // Proceed with insertion
-    //     $stmt = $this->db->getConnection()->prepare(
-    //         "INSERT INTO `room` (number, ext) VALUES (?, ?)"
-    //     );
-    //     return $stmt->execute([$room_no, $ext]);
-    // }
-    
-    
-    // public function insert_room($room_no,$ext) {
-    //     $stmt = $this->db->getConnection()->prepare(
-    //         "INSERT INTO `room` (number, ext) VALUES (?, ?)"
-    //     );
-    //     return $stmt->execute([$room_no, $ext]);
-    // }
 }
 
 class Category {
     private $db;
 
-    // Constructor to inject the database connection
-    // public function __construct($db) {
-    //     $this->db = $db;
-    // }
     public function __construct() {
         $this->db = new Database();
     }

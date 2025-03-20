@@ -1,5 +1,5 @@
 <?php
-include_once('config.php');
+include_once('../config.php');
 ini_set('display_errors', '1');
 ini_set('display_startup_errors', '1');
 error_reporting(E_ALL);
@@ -38,19 +38,54 @@ class Database {
         return $stmt->rowCount(); // Return the number of rows affected
     }
 
-    public function select($tablename, $conditions = [], $fetchAll = true) {
+    // public function select($tablename, $conditions = [], $fetchAll = true) {
 
+    //     try {
+    //         $sql = "SELECT * FROM $tablename";
+    //         if (!empty($conditions)) {
+    //             $whereClauses = [];
+    //             foreach ($conditions as $column => $value) {
+    //                 $whereClauses[] = "$column = :$column";
+    //             }
+    //             $sql .= " WHERE " . implode(" AND ", $whereClauses);
+    //         }
+    //         $stmt = $this->pdo->prepare($sql);
+    //         $stmt->execute($conditions);
+    //         return $fetchAll ? $stmt->fetchAll(PDO::FETCH_ASSOC) : $stmt->fetch(PDO::FETCH_ASSOC);
+    //     } catch (PDOException $e) {
+    //         return "Error in select: " . $e->getMessage();
+    //     }
+    // }
+
+    public function select($tablename, $conditions = [], $fetchAll = true, $columns = [], $groupBy = '') {
         try {
-            $sql = "SELECT * FROM $tablename";
+            $columnsStr = !empty($columns) ? implode(", ", $columns) : '*';
+            $sql = "SELECT $columnsStr FROM $tablename";
+            $params = [];
             if (!empty($conditions)) {
                 $whereClauses = [];
+                $params = [];
+                $counter = 1; // Ensures unique placeholders
+            
                 foreach ($conditions as $column => $value) {
-                    $whereClauses[] = "$column = :$column";
+                    if (is_null($value)) {
+                        $whereClauses[] = "$column";
+                    }else {
+                        $paramName = ":param$counter";
+                        $whereClauses[] = "$column = $paramName";
+                        $params[$paramName] = $value;
+                        $counter++;
+                    }
                 }
                 $sql .= " WHERE " . implode(" AND ", $whereClauses);
             }
-            $stmt = $this->pdo->prepare($sql);
-            $stmt->execute($conditions);
+            if ($groupBy) {
+                $sql .= " GROUP BY $groupBy";
+            }
+       
+            $stmt = $this->pdo->prepare($sql);            
+            $stmt->execute($params);
+    
             return $fetchAll ? $stmt->fetchAll(PDO::FETCH_ASSOC) : $stmt->fetch(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
             return "Error in select: " . $e->getMessage();
@@ -72,7 +107,7 @@ class Database {
 
         $params = array_combine($placeholders, $values);
         $stmt->execute($params);
-
+        
         return $stmt->rowCount();
     }
 
