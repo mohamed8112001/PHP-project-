@@ -2,17 +2,17 @@ document.addEventListener("DOMContentLoaded", function () {
     const form = document.querySelector("form");
 
     form.addEventListener("submit", function (event) {
-        let isValid = true; 
+        let isValid = true;
 
 
         const username = form.Username.value.trim();
         const email = form.Email.value.trim();
         const password = form.Password.value.trim();
-        const firstName = form.First_name.value.trim();
-        const lastName = form.Last_name.value.trim();
-        const phone = form.phone.value.trim();
-        const gender = form.Gender.value;
-        const profileImage = form.profile_image.files[0]; 
+        const firstName = form.First_name.value;
+        // const lastName = form.Last_name.value.trim();
+        // const phone = form.phone.value.trim();
+        // const gender = form.Gender.value;
+        const profileImage = form.profile_image.files[0];
 
 
 
@@ -37,21 +37,21 @@ document.addEventListener("DOMContentLoaded", function () {
             isValid = false;
         }
 
-        if (lastName === "") {
-            alert("Last name cannot be empty.");
-            isValid = false;
-        }
+        // if (lastName === "") {
+        //     alert("Last name cannot be empty.");
+        //     isValid = false;
+        // }
 
-        const phonePattern = /^[0-9]{10,25}$/;
-        if (!phonePattern.test(phone)) {
-            alert("Phone number must be between 10 and 25 digits.");
-            isValid = false;
-        }
+        // const phonePattern = /^[0-9]{10,25}$/;
+        // if (!phonePattern.test(phone)) {
+        //     alert("Phone number must be between 10 and 25 digits.");
+        //     isValid = false;
+        // }
 
-        if (gender === "") {
-            alert("Please select a gender.");
-            isValid = false;
-        }
+        // if (gender === "") {
+        //     alert("Please select a gender.");
+        //     isValid = false;
+        // }
 
         if (profileImage) {
             const allowedTypes = ["image/jpeg", "image/png", "image/jpg"];
@@ -73,4 +73,19 @@ document.addEventListener("DOMContentLoaded", function () {
             event.preventDefault();
         }
     });
+});
+document.addEventListener("DOMContentLoaded", function () {
+    fetch("logic.php")
+        .then(response => response.json()) // تحويل الاستجابة إلى JSON
+        .then(data => {
+            let roomSelect = document.getElementById("room_id");
+
+            data.forEach(room => {
+                let option = document.createElement("option");
+                option.value = room.id;
+                option.textContent = room.name;
+                roomSelect.appendChild(option);
+            });
+        })
+        .catch(error => console.error("Error fetching rooms:", error));
 });

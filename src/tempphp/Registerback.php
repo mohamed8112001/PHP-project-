@@ -4,26 +4,36 @@ include_once("logic.php");
 include_once("SMTP.php");
 try {
     $functions = new Query_database($pdo);
-
+    $rooms = $functions->getAllRooms();
     ValidationRegister::setDatabaseConnection($pdo);
 
-    $Username   = $_POST['Username'] ?? '';
-    $Email      = $_POST['Email'] ?? '';
-    $Password   = $_POST['Password'] ?? '';
-    $First_name = $_POST['First_name'] ?? '';
-    $Last_name  = $_POST['Last_name'] ?? '';
-    $phone      = $_POST['phone'] ?? '';
-    $Gender     = $_POST['Gender'] ?? 'User';
-    $Role       = $_POST['Role'] ?? 'User';
+
+
+    $Username       = $_POST['Username'] ?? '';
+    $Email          = $_POST['Email'] ?? '';
+    $Password       = $_POST['Password'] ?? '';
+    $First_name     = $_POST['First_name'] ?? '';
+    // $Last_name   = $_POST['Last_name'] ?? '';
+    // $phone       = $_POST['phone'] ?? '';
+    // $Gender      = $_POST['Gender'] ?? 'User';
+    $Role           = $_POST['Role'] ?? 'User';
+    $room_id        = $_POST['room_id'];
+
+    // ✅ التأكد من أن room_id المرسل موجود في القائمة
+    if (!in_array($room_id, $valid_room_ids)) {
+        throw new Exception("Invalid Room ID selected.");
+    }
+
     $profile_image = "default.jpg";
 
     ValidationRegister::Username($Username);
     ValidationRegister::Email($Email);
     ValidationRegister::Password($Password);
     ValidationRegister::FirstName($First_name);
-    ValidationRegister::LastName($Last_name);
-    ValidationRegister::Phone($phone);
-    ValidationRegister::Gender($Gender);
+    // ValidationRegister::LastName($Last_name);
+    // ValidationRegister::Phone($phone);
+    // ValidationRegister::Gender($Gender);
+    ValidationRegister::RoomID($room_id);
     ValidationRegister::Role($Role);
 
     if (isset($_FILES["profile_image"]) && $_FILES["profile_image"]["error"] == 0) {
@@ -48,19 +58,20 @@ try {
     $data = [
         'Username'              => $Username,
         'email'                 => $Email,
-        'password_hash'         => $hashedPassword,
-        'First_name'            => $First_name,
-        'Last_name'             => $Last_name,
-        'Phone_number'          => $phone,
-        'gender'                => $Gender,
-        'Role'                  => $Role,
-        'profile_image'         => $profile_image,
+        'password'               => $hashedPassword,
+        'name'                  => $First_name,
+        // 'Last_name'             => $Last_name,
+        // 'Phone_number'          => $phone,
+        // 'gender'                => $Gender,
+        'role'                  => $Role,
+        'image_path'            => $profile_image,
+        'room_id'               => $room_id,
         'is_verified'           => 0,
         'verification_token'    => $verification_token
     ];
 
 
-    $result = $functions->insertData('User', $data);
+    $result = $functions->insertData('user', $data);
 
     if ($result === true) {
         $verification_link = "http://localhost/labs/tempphp/Login.html?token=" . $verification_token;

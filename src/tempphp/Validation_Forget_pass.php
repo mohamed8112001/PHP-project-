@@ -40,7 +40,7 @@ class Forget_Password
             $token = bin2hex(random_bytes(32));
             $expires_at = date("Y-m-d H:i:s", strtotime("+1 hour"));
 
-            $stmt = $this->pdo->prepare("UPDATE User SET reset_token = ?, reset_expires_at = ? WHERE email = ?");
+            $stmt = $this->pdo->prepare("UPDATE user SET reset_token = ?, reset_expires_at = ? WHERE email = ?");
             echo "var_dump($stmt)";
             $stmt->execute([$token, $expires_at, $email]);
 
@@ -58,7 +58,7 @@ class Forget_Password
     public function getUserByToken($token)
     {
         try {
-            $stmt = $this->pdo->prepare("SELECT * FROM User WHERE reset_token = ? AND reset_expires_at > NOW()");
+            $stmt = $this->pdo->prepare("SELECT * FROM user WHERE reset_token = ? AND reset_expires_at > NOW()");
             $stmt->execute([$token]);
             $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -77,7 +77,7 @@ class Forget_Password
     {
         try {
             $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
-            $stmt = $this->pdo->prepare("UPDATE User SET password_hash = ?, reset_token = NULL, reset_expires_at = NULL WHERE email = ?");
+            $stmt = $this->pdo->prepare("UPDATE user SET password = ?, reset_token = NULL, reset_expires_at = NULL WHERE email = ?");
             $stmt->execute([$hashedPassword, $email]);
             var_dump($stmt->rowCount());
             return $stmt->rowCount() > 0;

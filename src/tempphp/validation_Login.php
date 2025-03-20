@@ -14,7 +14,7 @@ class ValidationLogin
     {
         $user = $this->functions->getUserByEmailOrUsername($input);
         var_dump($user);
-        if ($user && password_verify($password, $user['password_hash'])) {
+        if ($user && password_verify($password, $user['password'])) {
             return $user;
         }
         return false;
@@ -25,7 +25,7 @@ class ValidationLogin
         $user = $this->validateUser($input, $password);
         if ($user) {
             session_start();
-            $_SESSION['user_id'] = $user['ID'];
+            $_SESSION['user_id'] = $user['id'];
             $_SESSION['username'] = $user['Username'];
             $_SESSION['role'] = $user['Role'];
 

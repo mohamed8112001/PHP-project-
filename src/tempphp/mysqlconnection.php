@@ -14,7 +14,7 @@ class Database
         if (self::$pdo === null) {
             try {
                 $server     = 'localhost';
-                $database   = 'webproject';
+                $database   = 'mydatabase';
                 $username   = 'root';
                 $password   = 'Mohamed_Diab123';
 
