@@ -76,7 +76,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <label for="role">Role <span class="required">*</span></label>
             <input type="text" name="role" id="role" value="<?php echo htmlspecialchars($user['role'] ?? ''); ?>" required>
 
-            <input type="submit" value="Update User">
+            <input type="submit" value="Update User" name="updateData">
         </form>
     </div>
 </body>

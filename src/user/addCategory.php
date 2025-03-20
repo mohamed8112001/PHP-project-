@@ -4,7 +4,7 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 include_once('blogic.php');
-include_once('templates/navbar.php');
+include_once('../template/nav.php');
 
 ?>
 
@@ -15,12 +15,13 @@ include_once('templates/navbar.php');
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add User</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="templates/stylee.css">
+    <!-- <link rel="stylesheet" href="../template/styleeTemplate.css"> -->
+    <link rel="stylesheet" href="stylee.css">
+
       <style></style>
 </head>
 <body>
 
-    <?php include('templates/navbar.php'); ?>
 
     <div class="page-container">
     <form action="saveData.php" method="post"  id="registrationForm">
@@ -52,7 +53,7 @@ include_once('templates/navbar.php');
             </div>
 
             <div class="button-group">
-                <input type="submit" name="send" value="Add User">
+                <input type="submit" name="send" value="Add Category">
             </div> 
         </form>
     </div>

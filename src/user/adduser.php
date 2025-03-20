@@ -3,25 +3,40 @@ session_start();
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 include_once('blogic.php');
+$errors = [];
 
+if (isset($_GET['errors'])) {
+    $errors = json_decode($_GET['errors'], true);
+}
 $blogic = new User();
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add User - PHP CoffeeCenter</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" sizes="32x32" href="../template/favicon.png">
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;700&family=Roboto:wght@400;500;700&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="stylee.css">
+    <style>
+
+     
+    </style>
 </head>
+
 <body class="admin-page">
     <?php include_once('../template/nav.php'); ?>
 
     <div class="page-container">
-        <form action="validation.php" method="post" enctype="multipart/form-data" id="registrationForm" class="admin-form">
+        <form action="validation.php" method="post" enctype="multipart/form-data" id="registrationForm"
+            class="admin-form">
             <div class="form-header">Add New User</div>
 
             <?php
@@ -30,43 +45,65 @@ $blogic = new User();
                 echo "<script>setTimeout(() => { window.location.href = 'index.php'; }, 2000);</script>";
             }
 
-            if (!empty($errors)) {
-                echo "<div class='error-container'>";
-                foreach ($errors as $error) {
-                    echo "<p class='error-message'>$error</p>";
-                }
-                echo "</div>";
-            }
+
             ?>
 
             <div class="form-group">
                 <label for="name">Name <span class="required">*</span></label>
-                <input type="text" name="name" id="name" placeholder="Enter your name" value="<?php echo htmlspecialchars($name ?? ''); ?>" required aria-describedby="name-error">
-                <span class="error" id="name-error"></span>
+                <input type="text" name="name" id="name" placeholder="Enter your name">
+                <?php
+                if (isset($errors['name'])) {
+                    echo "<span class='error-message'> ⚠️ " . $errors['name'] . "</span>";
+                }
+
+                ?>
             </div>
 
             <div class="form-group">
                 <label for="email">Email <span class="required">*</span></label>
-                <input type="email" name="email" id="email" placeholder="Enter your email" value="<?php echo htmlspecialchars($email ?? ''); ?>" required aria-describedby="email-error">
-                <span class="error" id="email-error"></span>
+                <input type="email" name="email" id="email" placeholder="Enter your email"
+                    value="<?php echo htmlspecialchars($email ?? ''); ?>" required aria-describedby="email-error">
+                <?php
+                if (isset($errors['email'])) {
+                    echo "<span class='error-message'> ⚠️ " . $errors['email'] . "</span>";
+                }
+                ?>
+
+                </span>
             </div>
 
             <div class="form-group">
                 <label for="password">Password <span class="required">*</span></label>
                 <div class="password-wrapper">
-                    <input type="password" name="password" id="password" placeholder="Enter your password" required aria-describedby="password-error">
-                    <button type="button" class="toggle-password" aria-label="Toggle password visibility"><i class="fas fa-eye"></i></button>
+                    <input type="password" name="password" id="password" placeholder="Enter your password" required
+                        aria-describedby="password-error">
+                    <button type="button" class="toggle-password" aria-label="Toggle password visibility"><i
+                            class="fas fa-eye"></i></button>
                 </div>
-                <span class="error" id="password-error"></span>
+                <!-- <span class="error" id="password-error"></span> -->
+                <?php
+                if (isset($errors['password'])) {
+                    echo "<span class='error-message'> ⚠️ " . $errors['password'] . "</span>";
+                }
+
+                ?>
             </div>
 
             <div class="form-group">
                 <label for="Cpassword">Confirm Password <span class="required">*</span></label>
                 <div class="password-wrapper">
-                    <input type="password" name="Cpassword" id="Cpassword" placeholder="Confirm your password" required aria-describedby="cpassword-error">
-                    <button type="button" class="toggle-password" aria-label="Toggle password visibility"><i class="fas fa-eye"></i></button>
+                    <input type="password" name="Cpassword" id="Cpassword" placeholder="Confirm your password" required
+                        aria-describedby="cpassword-error">
+                    <button type="button" class="toggle-password" aria-label="Toggle password visibility"><i
+                            class="fas fa-eye"></i></button>
                 </div>
-                <span class="error" id="cpassword-error"></span>
+                <!-- <span class="error" id="cpassword-error"></span> -->
+                <?php
+                if (isset($errors['cpassword'])) {
+                    echo "<span class='error-message'> ⚠️ " . $errors['cpassword'] . "</span>";
+                }
+
+                ?>
             </div>
 
             <div class="form-group">
@@ -85,17 +122,23 @@ $blogic = new User();
                     }
                     ?>
                 </select>
-                <span class="error" id="room-error"></span>
+                <!-- <span class="error" id="room-error"></span> -->
+                <?php
+                if (isset($errors['room_id'])) {
+                    echo "<span class='error-message'> ⚠️ " . $errors['room_id'] . "</span>";
+                }
+
+                ?>
             </div>
 
             <div class="form-group">
                 <label for="Profile_Picture">Profile Picture</label>
-                <input type="file" name="Profile_Picture" id="Profile_Picture" accept="image/*" aria-describedby="file-error">
-                <span class="error" id="file-error"></span>
+                <input type="file" name="Profile_Picture" id="Profile_Picture" accept="image/*"
+                    aria-describedby="file-error">
             </div>
 
             <div class="button-group">
-                <input type="submit" name="send" value="Add User">
+                <input type="submit" name="register" value="Add User">
                 <a href="Home.php" class="cancel-button">Cancel</a>
             </div>
         </form>
@@ -138,13 +181,14 @@ $blogic = new User();
 
             document.querySelectorAll('.error').forEach(error => error.textContent = '');
 
-            if (name.length < 3) {
-                document.getElementById('name-error').textContent = 'Name must be at least 3 characters.';
-                isValid = false;
-            }
+            // if (name.length < 3) {
+            //     document.getElementById('name-error').innerHTML = 'Name must be at least 3 characters.';
+            //     // name.focus();
+            //     isValid = false;
+            // } 
 
             if (!email.includes('@') || !email.includes('.')) {
-                document.getElementById('email-error').textContent = 'Invalid email format.';
+                document.getElementById('email-error').innerHTML = 'Invalid email format.';
                 isValid = false;
             }
 
@@ -191,4 +235,5 @@ $blogic = new User();
         });
     </script>
 </body>
+
 </html>

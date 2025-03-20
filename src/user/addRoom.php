@@ -7,7 +7,7 @@ if (!file_exists('blogic.php')) {
     die('Error: blogic.php file not found.');
 }
 include_once('blogic.php');
-include_once('config.php');
+include_once('../config.php');
 
 $user = new User();
 ?>
