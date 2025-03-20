@@ -51,7 +51,17 @@ error_reporting(E_ALL);
             </div>
 
             <div class="col-md-7">
-                <?php include __DIR__ . '/views/admin/addToUser.php' ?>
+                <?php 
+                if (!empty($_SESSION) && isset($_SESSION['user_type'])){
+                    if ($_SESSION['user_type'] == 'admin'){
+                        include __DIR__ . '/views/admin/addToUser.php';
+                    }else{
+                        include __DIR__ . '/views/user/last_orders.php';
+                    }
+                }else{
+                    include __DIR__ . '/views/user/last_orders.php';
+                }
+                ?>
                 <?php include __DIR__ . '/views/widgets/list.php'; ?>                
             </div>
         </div>

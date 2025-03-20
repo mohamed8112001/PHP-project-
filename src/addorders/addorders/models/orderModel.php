@@ -95,12 +95,19 @@ class OrderModel {
     
     public function getLastFiveOrders($userId) {
         try {
-            $query = "SELECT o.*, r.number as room_number
-                     FROM orders o
-                     LEFT JOIN rooms r ON o.room_id = r.id
-                     WHERE o.user_id = :user_id
-                     ORDER BY o.date DESC
-                     LIMIT 5";
+            $query = "select 
+                        o.id as order_id,
+                        o.date as order_date,
+                        op.product_id,
+                        p.name as product_name,
+                        op.quantity,
+                        op.price as order_price_per_unit,
+                        (op.quantity * op.price) as total_price
+                        from orders o
+                        join order_product op on o.id = op.order_id
+                        join product p on op.product_id = p.id
+                        order by o.date DESC
+                        limit 5;";
             
             $stmt = $this->conn->prepare($query);
             $stmt->bindParam(':user_id', $userId);

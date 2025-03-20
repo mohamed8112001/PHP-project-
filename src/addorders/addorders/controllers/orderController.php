@@ -62,13 +62,13 @@ class OrderController {
     }
     
     public function viewLastFiveOrders() {
-        // session_start();
         // if (!isset($_SESSION['user_id'])) {
         //     header('Location: login.php');
         //     exit();
         // }
         
-        $userId = $_SESSION['user_id'];
+        // $userId = $_SESSION['user_id'];
+        $userId = "moataz.noaman12@gmail.com";
         $orders = $this->orderModel->getLastFiveOrders($userId);
         return $orders;
     }

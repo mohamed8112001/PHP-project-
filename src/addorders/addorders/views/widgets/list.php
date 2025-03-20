@@ -15,7 +15,7 @@ error_reporting(E_ALL);
     <div class="product-grid-container" id="productGrid">
         <?php 
         include 'controllers/productController.php';
-        include 'controllers/orderController.php';
+        // include 'controllers/orderController.php';
 
         $controller = new ProductController();
         $orderController = new OrderController();
