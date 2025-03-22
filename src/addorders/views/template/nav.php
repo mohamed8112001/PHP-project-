@@ -1,8 +1,6 @@
 <?php
-if(!isset($_SESSION['username']) || empty($_SESSION['username'])||  $_SESSION['role']=='user' )  {
-    print_r($_SESSION);
-	header("Location: http://localhost/php_pro/src/user/Home.php ");
-}  
+// if(empty($_SESSION['username'])||  $_SESSION['role']=='user' )    
+// 	header("Location: http://localhost/php_pro/src/user/Home.php ");
 
 $userId=$_SESSION['user_id'] ;
 ?>
@@ -37,7 +35,7 @@ $userId=$_SESSION['user_id'] ;
                 <!-- Navigation Links -->
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link " href="http://localhost/php_pro/src/addorders/index.php" data-tooltip="Go to Home"><i class="fas fa-home me-1"></i>Home</a>
+                        <a class="nav-link " href="http://localhost/php_pro/src/addorders/addorders/index.php" data-tooltip="Go to Home"><i class="fas fa-home me-1"></i>Home</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="http://localhost/php_pro/src/product/index.php" data-tooltip="View Products"><i class="fas fa-coffee me-1"></i>Products</a>

@@ -1,8 +1,7 @@
 <?php
-if(!isset($_SESSION['username']) || empty($_SESSION['username'])||  $_SESSION['role']=='user' )  {
-    print_r($_SESSION);
-	header("Location: http://localhost/php_pro/src/user/Home.php ");
-}  
+session_start();
+// if(empty($_SESSION['username'])|| $_SESSION['role']=='admin' )    
+// 	header("Location: http://localhost/php_pro/src/user/Home.php ");
 
 $userId=$_SESSION['user_id'] ;
 ?>
@@ -37,43 +36,47 @@ $userId=$_SESSION['user_id'] ;
                 <!-- Navigation Links -->
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link " href="http://localhost/php_pro/src/addorders/index.php" data-tooltip="Go to Home"><i class="fas fa-home me-1"></i>Home</a>
+                        <a class="nav-link " href="../addorders/index.php" data-tooltip="Go to Home"><i class="fas fa-home me-1"></i>Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="http://localhost/php_pro/src/product/index.php" data-tooltip="View Products"><i class="fas fa-coffee me-1"></i>Products</a>
+                        <a class="nav-link" href="../Orders/userOrders.php" data-tooltip="View Products"><i class="fas fa-coffee me-1"></i>My Orders</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="http://localhost/php_pro/src/user/All_Users.php" data-tooltip="Manage Users"><i class="fas fa-users me-1"></i>Users</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="http://localhost/php_pro/src/Orders/adminOrders.php" data-tooltip="Manual Order Entry"><i class="fas fa-pen me-1"></i>Manual Order</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="http://localhost/php_pro/src/Orders/checks.php" data-tooltip="View Checks"><i class="fas fa-receipt me-1"></i>Checks</a>
-                    </li>
+                 
                 </ul>
                 <!-- Right Side: Search and User Dropdown -->
                 <div class="d-flex align-items-center">
                     <!-- User Dropdown -->
                     <div class="dropdown">
-                    <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
+                       <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
                             id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                             <?php
                                 include_once 'bLogic.php';
                                 $navObj = new Nav();
-                                $user = $navObj->getUserById($userId);
+                                $user = $navObj->getUserById($userId);      
                                 // echo '<img src="..user/'.$user->image_path.'" class="rounded-circle me-2" alt="User">';
                             ?>
-                            <span class="username"><?php  echo $_SESSION['username']; ?> </span>
+                            <span class="username"><?php echo $user["name"]; ?></span>
                         </a>
-                        <ul class="dropdown-menu dropdown-menu-end shadow-sm">                                                     
+                        <ul class="dropdown-menu dropdown-menu-end shadow-sm">
+                            <!-- <li>
+                                <a class="dropdown-item" href="#"><i class="fas fa-user me-2"></i>Profile</a>
+                            </li>
                             <li>
-                                <a class="dropdown-item text-danger" href="../user/Home.php">
-                                <i class="fas fa-sign-out-alt me-2"></i>Logout</a>
+                                <a class="dropdown-item" href="#"><i class="fas fa-cog me-2"></i>Settings</a>
+                            </li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li> -->
+                            <li>
+                            <a class="dropdown-item text-danger" href="../user/Home.php">
+                            <i class="fas fa-sign-out-alt me-2"></i>Logout</a>
                             </li>
                         </ul>
                     </div>
                 </div>
             </div>
+            
         </div>
     </nav>
+
+    

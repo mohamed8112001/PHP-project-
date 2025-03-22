@@ -6,7 +6,7 @@ class RoomModel {
     private $db;
 
     public function __construct($conn) {
-        $this->db = new Database($conn);
+        $this->db = new DatabaseOrder($conn);
     }
 
 

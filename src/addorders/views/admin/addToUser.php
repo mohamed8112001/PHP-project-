@@ -16,17 +16,16 @@ error_reporting(E_ALL);
 <body>
     <div class="mb-4 form-group">
         <label for="input-datalist" class="mb-3">User To Add</label>
-        <input type="text" class="form-control" placeholder="User To Add" list="list-users" id="input-datalist">
-        <datalist id="list-users">
+        <select class="form-select" aria-label="Default select example">
             <?php 
                 require_once 'controllers/userController.php';
                 $userController = new UserController();
                 $users = $userController->getAllUsers();
                 foreach($users as $user){
-                    echo '<option value="' . $user->id . '">' . $user->name . '</option>';
+                    echo "<option value='$user->id'name ='$user->name ' >$user->name </option>";
                 }
             ?>
-        </datalist>
+        </select>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>

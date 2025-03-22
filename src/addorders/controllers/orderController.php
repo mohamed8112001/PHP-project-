@@ -10,23 +10,42 @@ class OrderController {
         $this->orderModel = new OrderModel($conn);
     }
 
-    public function insetOrder($room){
-        // session_start();
-        // if (!isset($_SESSION['user_id'])) {
-        //     header('Location: login.php');
-        //     exit();
-        // }
-        return $this->orderModel->insertNewOrder($room);
+    public function insetOrder($order) {        
+        return $this->orderModel->insertNewOrder($order);
     }
 
-    public function isLimitedOrpopular($product){
+    public function isLimitedOrpopular($product) {
         return $this->orderModel->isLimitedOrpopular($product->id);
     }
 
-    public function getLastInsertId()
-    {
+    public function getLastInsertId() {
         global $conn;
         return $conn->lastInsertId();
+    }
+
+    public function getOrderDetails($orderId) {
+        try {
+            global $conn;
+            
+            $query = "SELECT o.*, r.number as room_number, u.name as user_name
+                     FROM orders o
+                     LEFT JOIN rooms r ON o.room_id = r.id
+                     LEFT JOIN users u ON o.user_id = u.id
+                     WHERE o.id = :order_id";
+            
+            $stmt = $conn->prepare($query);
+            $stmt->bindParam(':order_id', $orderId);
+            $stmt->execute();
+            
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            error_log("Error getting order details: " . $e->getMessage());
+            return false;
+        }
+    }
+
+    public function getOrderItems($orderId) {
+        return $this->orderModel->getOrderItems($orderId);
     }
 
     public function viewMyOrders() {
@@ -43,92 +62,16 @@ class OrderController {
     }
     
     public function viewLastFiveOrders() {
-        // session_start();
         // if (!isset($_SESSION['user_id'])) {
         //     header('Location: login.php');
         //     exit();
         // }
         
-        $userId = $_SESSION['user_id'];
+        // $userId = $_SESSION['user_id'];
+        $userId = "moataz.noaman12@gmail.com";
         $orders = $this->orderModel->getLastFiveOrders($userId);
-        
+        return $orders;
     }
-    
-    // public function placeOrder() {
-    //     session_start();
-    //     if (!isset($_SESSION['user_id'])) {
-    //         header('Location: login.php');
-    //         exit();
-    //     }
-        
-    //     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    //         $userId = $_SESSION['user_id'];
-    //         $roomId = $_POST['room_id'];
-    //         $products = isset($_POST['products']) ? $_POST['products'] : [];
-    //         $totalAmount = $_POST['total_amount'];
-            
-    //         $order = [
-    //             'user_id' => $userId,
-    //             'room_id' => $roomId,
-    //             'total_amount' => $totalAmount,
-    //             'order_date' => date('Y-m-d H:i:s'),
-    //             'status' => 'pending'
-    //         ];
-            
-    //         $result = $this->orderModel->insertNewOrder($order);
-            
-    //         if ($result) {
-    //             header('Location: index.php?action=orderSuccess');
-    //             exit();
-    //         } else {
-    //             $_SESSION['error'] = "Failed to place order. Please try again.";
-    //             header('Location: index.php?action=placeOrder');
-    //             exit();
-    //         }
-    //     }
-        
-    //     $rooms = $this->roomModel->getAllRooms();
-        
-    // }
-    
-    // public function adminPlaceOrder() {
-    //     session_start();
-    //     if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
-    //         header('Location: login.php');
-    //         exit();
-    //     }
-        
-    //     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    //         $userId = $_POST['user_id'];
-    //         $roomId = $_POST['room_id'];
-    //         $products = isset($_POST['products']) ? $_POST['products'] : [];
-    //         $totalAmount = $_POST['total_amount'];
-            
-    //         $order = [
-    //             'user_id' => $userId,
-    //             'room_id' => $roomId,
-    //             'total_amount' => $totalAmount,
-    //             'order_date' => date('Y-m-d H:i:s'),
-    //             'status' => 'pending'
-    //         ];
-            
-    //         $result = $this->orderModel->insertNewOrder($order);
-            
-    //         if ($result) {
-    //             header('Location: admin.php?action=orderSuccess');
-    //             exit();
-    //         } else {
-    //             $_SESSION['error'] = "Failed to place order. Please try again.";
-    //             header('Location: admin.php?action=placeOrder');
-    //             exit();
-    //         }
-    //     }
-        
-    //     $users = $this->userModel->getAllUsers();
-        
-    //     $rooms = $this->roomModel->getAllRooms();
-        
-    // }
     
     public function viewAllOrders() {
         // session_start();

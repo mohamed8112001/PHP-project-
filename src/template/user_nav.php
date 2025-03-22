@@ -1,7 +1,8 @@
 <?php
 // session_start();
-if(empty($_SESSION['username'])|| $_SESSION['role']=='admin' )    
-	header("Location: http://localhost/php_pro/src/user/Home.php ");
+if(!isset($_SESSION['username']) || empty($_SESSION['username'])||  $_SESSION['role']=='user' )  {
+    print_r($_SESSION);
+}
 
 $userId=$_SESSION['user_id'] ;
 ?>

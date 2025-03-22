@@ -2,7 +2,7 @@
 include_once( __DIR__.'/../config/config.php');
 
 
-class Database{
+class DatabaseOrder{
 	private $conn;
 	public function __construct($conn)
 	{

@@ -104,29 +104,74 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     const confirmButton = document.getElementById('confirmButton');
-    confirmButton.onclick= () => {
-        gsap.timeline()
-            .to(confirmButton, {
-                duration: 0.1,
-                scale: 0.9,
-                ease: "power1.in"
-            })
-            .to(confirmButton, {
-                duration: 0.2,
-                scale: 1,
-                ease: "back.out(2)"
-            })
-            .to(confirmButton, {
-                duration: 0.3,
-                backgroundColor: "#27ae60",
-                ease: "power1.inOut"
-            });
-        
-        showSuccessMessage();
+    if (confirmButton) {
+        confirmButton.onclick = function(e) {
+            gsap.timeline()
+                .to(confirmButton, {
+                    duration: 0.1,
+                    scale: 0.9,
+                    ease: "power1.in"
+                })
+                .to(confirmButton, {
+                    duration: 0.2,
+                    scale: 1,
+                    ease: "back.out(2)"
+                })
+                .to(confirmButton, {
+                    duration: 0.3,
+                    backgroundColor: "#27ae60",
+                    ease: "power1.inOut"
+                });
+            
+            showSuccessMessage();
+        };
     };
+    
+    const orderForm = document.getElementById('orderForm');
+    if (orderForm) {
+        orderForm.addEventListener('submit', function(e) {
+            if (!prepareOrderData()) {
+                e.preventDefault();
+                alert('Please add at least one product to your order.');
+                return false;
+            }
+            return true;
+        });
+    }
     
     setupQuantityControls();
 });
+
+function prepareOrderData() {
+    const orderItems = document.querySelectorAll('.order-item');
+    if (orderItems.length === 0) {
+        return false;
+    }
+    
+    const orderItemsData = [];
+    
+    orderItems.forEach(item => {
+        const productName = item.querySelector('h6').textContent;
+        const priceText = item.querySelector('small').textContent;
+        const price = parseInt(priceText.match(/\d+/)[0]);
+        const quantity = parseInt(item.querySelector('.quantity-input').value);
+        const productId = item.getAttribute('data-product-id');
+        
+        orderItemsData.push({
+            product_id: productId,
+            name: productName,
+            price: price,
+            quantity: quantity
+        });
+    });
+    
+    document.getElementById('orderItemsData').value = JSON.stringify(orderItemsData);
+    
+    const totalPrice = document.querySelector('.total-price').textContent.match(/\d+/)[0];
+    document.getElementById('totalPriceInput').value = totalPrice;
+    
+    return true;
+}
 
 function createSparkleEffect(event, element) {
     for (let i = 0; i < 8; i++) {
@@ -166,8 +211,7 @@ function createSparkleEffect(event, element) {
 function addToCartWithAnimation(productItem) {
     const productName = productItem.querySelector('h6').textContent;
     const productPrice = productItem.querySelector('.product-price').textContent;
-
-    
+    const productId = productItem.getAttribute('data-product-id');
 
     const productImg = productItem.querySelector('img');
     const imgClone = productImg.cloneNode(true);
@@ -196,7 +240,7 @@ function addToCartWithAnimation(productItem) {
         onComplete: () => {
             imgClone.remove();
             
-            addItemToCartDOM(productName, productPrice);
+            addItemToCartDOM(productName, productPrice, productId);
             
             gsap.to('.order-card', {
                 scale: 1.03,
@@ -209,7 +253,7 @@ function addToCartWithAnimation(productItem) {
     });
 }
 
-function addItemToCartDOM(productName, productPrice) {
+function addItemToCartDOM(productName, productPrice, productId) {
     const existingItems = document.querySelectorAll('.order-item');
     let found = false;
     
@@ -248,6 +292,7 @@ function addItemToCartDOM(productName, productPrice) {
         const orderItems = document.getElementById('orderItems');
         const newItem = document.createElement('div');
         newItem.className = 'order-item';
+        newItem.setAttribute('data-product-id', productId);
         newItem.innerHTML = `
             <div>
                 <h6 class="mb-0">${productName}</h6>
@@ -344,14 +389,18 @@ function updateTotalPrice() {
     });
     
     const totalElement = document.querySelector('.total-price');
-    const oldTotal = parseInt(totalElement.textContent.match(/\d+/)[0]);
+    const totalValue = document.getElementById('totalPriceValue');
+    const totalInput = document.getElementById('totalPriceInput');
+    const oldTotal = parseInt(totalElement.textContent.match(/\d+/) ? totalElement.textContent.match(/\d+/)[0] : 0);
     
     gsap.to({value: oldTotal}, {
         duration: 0.5,
         value: total,
         ease: "power1.out",
         onUpdate: function() {
-            totalElement.textContent = `EGP ${Math.round(this.targets()[0].value)}`;
+            const currentValue = Math.round(this.targets()[0].value);
+            totalValue.textContent = currentValue;
+            totalInput.value = currentValue;
         }
     });
 }
