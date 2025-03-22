@@ -11,6 +11,7 @@ class ProductModel{
 
     public function getAllProducts(){
         $records=$this->db->select("select p.id as id, p.name as name, p.price as price,p.status as status, p.image_path as image_path, c.name as category from product as p, category as c where p.category_id=c.id;");
+        print(implode($records));
         $products=[];
         foreach($records as $record){
             $products[] = new Product(

@@ -19,11 +19,11 @@ class ValidationRegister
             throw new Exception('Username should not contain spaces');
         }
 
-        if (strlen($username) < 3 || strlen($username) > 20) {
+        if (strlen($username) < 3 || strlen($username) > 50) {
             throw new Exception('Username must be between 3 and 20 characters');
         }
 
-        $stmt = self::$pdo->prepare("SELECT id FROM User WHERE Username = ?");
+        $stmt = self::$pdo->prepare("SELECT id FROM user WHERE Username = ?");
         $stmt->execute([$username]);
         if ($stmt->fetch()) {
             throw new Exception('Username is already taken');
@@ -42,7 +42,7 @@ class ValidationRegister
         }
 
         // Check if email already exists in the database
-        $stmt = self::$pdo->prepare("SELECT id FROM User WHERE Email = ?");
+        $stmt = self::$pdo->prepare("SELECT id FROM user WHERE email = ?");
         $stmt->execute([$Email]);
         if ($stmt->fetch()) {
             throw new Exception('Email is already registered');
@@ -78,43 +78,43 @@ class ValidationRegister
 
     public static function FirstName($firstName)
     {
-        if (!isset($firstName) || empty(trim($firstName))) {
-            throw new Exception('First Name field is empty');
+        if (!isset($firstName) || empty($firstName)) {
+            throw new Exception('Name field is empty');
         }
 
         if (!preg_match('/^[A-Za-z]+$/', $firstName)) {
-            throw new Exception('First Name should only contain letters');
+            throw new Exception('Name should only contain letters');
         }
     }
 
-    public static function LastName($lastName)
-    {
-        if (!isset($lastName) || empty(trim($lastName))) {
-            throw new Exception('Last Name field is empty');
-        }
+    // public static function LastName($lastName)
+    // {
+    //     if (!isset($lastName) || empty(trim($lastName))) {
+    //         throw new Exception('Last Name field is empty');
+    //     }
 
-        if (!preg_match('/^[A-Za-z]+$/', $lastName)) {
-            throw new Exception('Last Name should only contain letters');
-        }
-    }
+    //     if (!preg_match('/^[A-Za-z]+$/', $lastName)) {
+    //         throw new Exception('Last Name should only contain letters');
+    //     }
+    // }
 
-    public static function Phone($phone)
-    {
-        if (!preg_match('/^\+?[0-9]{10,25}$/', $phone)) {
-            throw new Exception('Invalid Phone number');
-        }
-    }
+    // public static function Phone($phone)
+    // {
+    //     if (!preg_match('/^\+?[0-9]{10,25}$/', $phone)) {
+    //         throw new Exception('Invalid Phone number');
+    //     }
+    // }
 
-    public static function Gender($gender)
-    {
-        if (!in_array($gender, ['Male', 'Female'])) {
-            throw new Exception('Please select a valid gender');
-        }
-    }
+    // public static function Gender($gender)
+    // {
+    //     if (!in_array($gender, ['Male', 'Female'])) {
+    //         throw new Exception('Please select a valid gender');
+    //     }
+    // }
 
     public static function Role($role)
     {
-        if (!in_array($role, ['Admin', 'User'])) {
+        if (!in_array($role, ['admin', 'user'])) {
             throw new Exception('Please select a valid role');
         }
     }
@@ -134,4 +134,24 @@ class ValidationRegister
             }
         }
     }
+
+    public static function RoomID($room_id)
+    {
+        if (!isset($room_id) || empty($room_id)) {
+            throw new Exception('Room ID is required.');
+        }
+
+        if (!is_numeric($room_id)) {
+            throw new Exception('Invalid Room ID.');
+        }
+
+        $stmt = self::$pdo->prepare("SELECT id FROM room WHERE id = ?");
+        $stmt->execute([$room_id]);
+
+        if (!$stmt->fetch()) {
+            throw new Exception('Room ID does not exist.');
+        }
+    }
+
+
 }

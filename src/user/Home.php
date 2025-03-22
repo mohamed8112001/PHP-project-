@@ -24,7 +24,7 @@
             height: 100vh;
             background-color: #1c1c1c;
             font-family: 'Poppins', sans-serif;
-            color: #ffcc00;
+            color: #8B4513;
             margin: 0;
         }
 
@@ -46,7 +46,7 @@
             display: inline-block;
             width: 5px;
             height: 50px;
-            background-color: #ffcc00;
+            background-color:rgba(139, 69, 19, 0.91);
             margin-left: 5px;
             animation: blink 1s infinite;
         }
@@ -71,7 +71,7 @@
             }
 
             50% {
-                background-color: #ffcc00;
+                background-color: #8B4513;
             }
 
         }
@@ -92,10 +92,10 @@
 
         .fixed-link {
             font-size: 18px;
-            color: #ffcc00;
+            color: #8B4513;
             text-decoration: none;
             padding: 10px 20px;
-            background-color: rgba(255, 255, 255, 0.1);
+            background-color: rgba(90, 84, 84, 0.1);
             border-radius: 5px;
             transition: background-color 0.3s ease;
         }
@@ -114,7 +114,7 @@
 
         <!-- Login & Sign Up Buttons -->
         <div class="fixed-links">
-            <a href="login.php" class="fixed-link">Login In</a>
+            <a href="../tempphp/Login.html" class="fixed-link">Login In</a>
             <a href="adduser.php" class="fixed-link">Sign Up</a>
         </div>
     </div>

@@ -1,11 +1,12 @@
 <?php
 session_start();
+include ('../template/nav.php');
 include '../config.php';
 include 'business_logic.php';
 $database  = new Database($pdo);
 $db  = new BusinessLogic($database);
 $categories = $db->get_all_categories();
-include '../template/nav.php';
+// include '../template/nav.php';
 ?>
 
 <!DOCTYPE html>

@@ -14,7 +14,7 @@ class Query_database
     {
         try {
 
-            if (!in_array($table, ['User'])) {
+            if (!in_array($table, ['user'])) {
                 throw new Exception("Invalid table name");
             }
 
@@ -36,7 +36,7 @@ class Query_database
     {
         try {
             $setPart = implode(", ", array_map(fn($key) => "$key = :$key", array_keys($data)));
-            $sql = "UPDATE User SET $setPart WHERE ID = :UserID";
+            $sql = "UPDATE user SET $setPart WHERE id = :UserID";
             $stmt = $this->pdo->prepare($sql);
             $data['UserID'] = $UserID;
             $stmt->execute($data);
@@ -46,21 +46,21 @@ class Query_database
         }
     }
 
-//    public function deleteUser($UserID)
-//     {
-//         try {
-//             $stmt = $this->pdo->prepare("DELETE FROM User WHERE ID = :UserID");
-//             $stmt->execute(['UserID' => $UserID]);
-//             return $stmt->rowCount() > 0;
-//         } catch (PDOException $e) {
-//             return "Error: " . $e->getMessage();
-//         }
-//     }
+    // public function deleteUser($UserID)
+    // {
+    //     try {
+    //         $stmt = $this->pdo->prepare("DELETE FROM user WHERE id = :UserID");
+    //         $stmt->execute(['UserID' => $UserID]);
+    //         return $stmt->rowCount() > 0;
+    //     } catch (PDOException $e) {
+    //         return "Error: " . $e->getMessage();
+    //     }
+    // }
 
     public function getUserByID($UserID)
     {
         try {
-            $stmt = $this->pdo->prepare("SELECT * FROM User WHERE ID = :UserID");
+            $stmt = $this->pdo->prepare("SELECT * FROM user WHERE id = :UserID");
             $stmt->execute(['UserID' => $UserID]);
             return $stmt->fetch(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
@@ -68,20 +68,20 @@ class Query_database
         }
     }
 
-    // public function getAllUsers()
-    // {
-    //     try {
-    //         $stmt = $this->pdo->query("SELECT * FROM User");
-    //         return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    //     } catch (PDOException $e) {
-    //         return "Error: " . $e->getMessage();
-    //     }
-    // }
+    public function getAllUsers()
+    {
+        try {
+            $stmt = $this->pdo->query("SELECT * FROM user");
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            return "Error: " . $e->getMessage();
+        }
+    }
 
     public function getUserByEmailOrUsername($input)
     {
         try {
-            $stmt = $this->pdo->prepare("SELECT ID, Username, email, password_hash, Role FROM User WHERE email = :input OR Username = :input");
+            $stmt = $this->pdo->prepare("SELECT id, Username, email, password, role FROM user WHERE email = :input OR Username = :input");
             $stmt->execute(['input' => $input]);
             return $stmt->fetch(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
@@ -89,21 +89,20 @@ class Query_database
         }
     }
 
-    // public function getUsersCount()
-    // {
-    //     try {
-    //         $stmt = $this->pdo->query("SELECT COUNT(*) AS total FROM User");
-    //         return $stmt->fetch(PDO::FETCH_ASSOC)['total'];
-    //     } catch (PDOException $e) {
-    //         return "Error: " . $e->getMessage();
-    //     }
-    // }
-
+    public function getUsersCount()
+    {
+        try {
+            $stmt = $this->pdo->query("SELECT COUNT(*) AS total FROM user");
+            return $stmt->fetch(PDO::FETCH_ASSOC)['total'];
+        } catch (PDOException $e) {
+            return "Error: " . $e->getMessage();
+        }
+    }
 
     public function getUserByEmail($email)
     {
         try {
-            $stmt = $this->pdo->prepare("SELECT * FROM User WHERE email = :email");
+            $stmt = $this->pdo->prepare("SELECT * FROM user WHERE email = :email");
             $stmt->execute(['email' => $email]);
             return $stmt->fetch(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
@@ -114,7 +113,7 @@ class Query_database
     public function saveResetToken($email, $token)
     {
         try {
-            $stmt = $this->pdo->prepare("UPDATE User SET reset_token = :token, token_expiry = DATE_ADD(NOW(), INTERVAL 1 HOUR) WHERE email = :email");
+            $stmt = $this->pdo->prepare("UPDATE user SET reset_token = :token, token_expiry = DATE_ADD(NOW(), INTERVAL 1 HOUR) WHERE email = :email");
             return $stmt->execute(['token' => $token, 'email' => $email]);
         } catch (PDOException $e) {
             return "Error: " . $e->getMessage();
@@ -124,7 +123,7 @@ class Query_database
     public function getEmailByToken($token)
     {
         try {
-            $stmt = $this->pdo->prepare("SELECT email FROM User WHERE reset_token = :token AND token_expiry > NOW()");
+            $stmt = $this->pdo->prepare("SELECT email FROM user WHERE reset_token = :token AND token_expiry > NOW()");
             $stmt->execute(['token' => $token]);
             $row = $stmt->fetch(PDO::FETCH_ASSOC);
             return $row ? $row['email'] : false;
@@ -136,8 +135,18 @@ class Query_database
     public function updatePassword($email, $hashedPassword)
     {
         try {
-            $stmt = $this->pdo->prepare("UPDATE User SET password = :password, reset_token = NULL, token_expiry = NULL WHERE email = :email");
+            $stmt = $this->pdo->prepare("UPDATE user SET password = :password, reset_token = NULL, token_expiry = NULL WHERE email = :email");
             return $stmt->execute(['password' => $hashedPassword, 'email' => $email]);
+        } catch (PDOException $e) {
+            return "Error: " . $e->getMessage();
+        }
+    }
+
+    public function getAllRooms()
+    {
+        try {
+            $stmt = $this->pdo->query("SELECT id, number FROM room");
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
             return "Error: " . $e->getMessage();
         }

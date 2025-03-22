@@ -12,10 +12,12 @@ error_reporting(E_ALL);
     <title>Make Order</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <!-- <link rel="stylesheet" href="index.css"> -->
+    <link rel="stylesheet" href="index.css">
+    <!-- <link rel="stylesheet" href="/var/www/html/php_pro/src/template/styleTemplate.css"> -->
 </head>
 <body>
 
+    <?php include __DIR__ . '/views/template/nav.php';?>
     <div class="container py-4">
         <div class="row">
             <div class="col-md-5">
@@ -50,7 +52,19 @@ error_reporting(E_ALL);
             </div>
 
             <div class="col-md-7">
-                <?php include __DIR__ . '/views/admin/addToUser.php' ?>
+                <?php 
+                include 'controllers/orderController.php';
+                
+                if (!empty($_SESSION) && isset($_SESSION['role'])){
+                    if ($_SESSION['role'] == 'admin'){
+                        include __DIR__ . '/views/admin/addToUser.php';
+                    }else{
+                        include __DIR__ . '/views/user/last_orders.php';
+                    }
+                }else{
+                    include __DIR__ . '/views/user/last_orders.php';
+                }
+                ?>
                 <?php include __DIR__ . '/views/widgets/list.php'; ?>                
             </div>
         </div>

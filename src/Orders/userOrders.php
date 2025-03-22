@@ -1,12 +1,11 @@
 <?php
 session_start();
-ini_set('display_errors', '1');
-ini_set('display_startup_errors', '1');
-error_reporting(E_ALL); 
-// if(empty($_SESSION['user_name'])|| $_SESSION['user_role']=='Admin' )
+// if(empty($_SESSION['username'])|| $_SESSION['role']=='admin' )
 // 	header("Location: $location ");
 
+$userId=$_SESSION['user_id'] ;
 include_once('../template/user_nav.php');
+
 
 ?>
 <head>
@@ -48,7 +47,6 @@ include_once('../template/user_nav.php');
         $dateFrom=$_GET['dateFrom'];
         $dateTo=$_GET['dateTo'];
     }
-    $userId=5;
     $orders= $ordersObj->userOrders($userId,$dateFrom,$dateTo);
     $totalMoney=0;
     ?>
@@ -126,7 +124,8 @@ include_once('../template/user_nav.php');
         ?>
         </tbody>
     </table>
-
+    
+    
     <?php if(count($orders) > 0): ?>
     <div class="total-container animate__animated animate__fadeIn">
         Total Amount: $<?php echo number_format($totalMoney, 2); ?>

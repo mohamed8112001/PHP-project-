@@ -37,8 +37,8 @@ class User {
     }
 
 
-    public function insert_user($name, $email, $password, $profile_picture, $room_no, $role = "user") {
-        return $this->db->insert('`user`',['name', 'email', 'password', 'image_path', 'room_id', 'role'],[$name, $email, $password, $profile_picture, $room_no, $role]);
+    public function insert_user($name,$Username, $email, $password, $profile_picture, $room_no, $role = "user") {
+        return $this->db->insert('`user`',['name','Username', 'email', 'password', 'image_path', 'room_id', 'role'],[$name,$Username, $email, $password, $profile_picture, $room_no, $role]);
 
     }
 // $tablename, $conditions = [], $fetchAll = true, $columns = [], $groupBy = ''
@@ -46,21 +46,21 @@ class User {
     //     return $this->db->select('user',"where email=? and password=?");
 
     // }
-    public function login($email, $password) {
-        if (empty($email) || empty($password)) {
-            return false; // التأكد من أن البيانات ليست فارغة
-        }
+    // public function login($email, $password) {
+    //     if (empty($email) || empty($password)) {
+    //         return false; // التأكد من أن البيانات ليست فارغة
+    //     }
     
-        // تنفيذ الاستعلام في قاعدة البيانات
-        $result = $this->db->select('user', "WHERE email = ? AND password = ?", [$email, $password]);
+    //     // تنفيذ الاستعلام في قاعدة البيانات
+    //     $result = $this->db->select('user', "WHERE email = ? AND password = ?", [$email, $password]);
         
-        if ($result) {
-            // لو لقى النتيجة، يرجع بيانات المستخدم
-            return $result[0];
-        } else {
-            return false; // لو البيانات غلط
-        }
-    }
+    //     if ($result) {
+    //         // لو لقى النتيجة، يرجع بيانات المستخدم
+    //         return $result[0];
+    //     } else {
+    //         return false; // لو البيانات غلط
+    //     }
+    // }
    
     
 }

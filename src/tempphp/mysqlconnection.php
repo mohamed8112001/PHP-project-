@@ -14,9 +14,9 @@ class Database
         if (self::$pdo === null) {
             try {
                 $server     = 'localhost';
-                $database   = 'webproject';
-                $username   = 'root';
-                $password   = 'Mohamed_Diab123';
+                $database   = 'phpPro';
+                $username   = 'php';
+                $password   = '1234';
 
                 self::$pdo = new PDO("mysql:host=$server;dbname=$database", $username, $password, [
                     PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,

@@ -3,14 +3,14 @@ session_start();
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
-
+include ('../template/nav.php');
 include '../config.php';
 include 'business_logic.php';
 
 $database = new Database();
 $db = new BusinessLogic($database);
 $products = $db->get_all_products();
-include_once('../template/nav.php');
+
 ?>
 <!DOCTYPE html>
 <html lang="ar">
@@ -48,7 +48,7 @@ include_once('../template/nav.php');
                                 <td><?= $product['status'] ?></td>
                                 <td><?= $product['category_name'] ?></td>
                                 <td>
-                                    <?php if (!empty($product['image_path']) && file_exists($product['image_path'])): ?>
+                                    <?php if (!empty($product['image_path'])): ?>
                                         <img src="<?= $product['image_path'] ?>" class="product-img" alt="Product Image" style="width: 100px; border-radius: 10px;">
                                     <?php else: ?>
                                         <span class="text-muted">No Photo</span>

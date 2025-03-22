@@ -1,10 +1,4 @@
 <?php
-session_start();
-ini_set('display_errors', '1');
-ini_set('display_startup_errors', '1');
-error_reporting(E_ALL); 
-
-#include_once('template/header.php');
 
 include_once('businessLogic.php');
 $usersChecks = new Orders();
@@ -40,6 +34,7 @@ if (isset($_SESSION['error']))
                <option value="">User</option> 
             	<?php
 		            $users=$usersChecks->getAllUsers();
+                    var_dump($users);
 		            foreach ($users as $user) {
 			            echo "<option value='".$user['id']."'>".$user['name']."</option>";
         	        }

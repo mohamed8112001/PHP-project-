@@ -4,9 +4,12 @@ ini_set('display_errors', '1');
 ini_set('display_startup_errors', '1');
 error_reporting(E_ALL);
 $host="localhost";
-$username="nada";
-$password="123456";
-$database="Cafeteria";
+// $username="nada";
+// $password="123456";
+// $database="Cafeteria";
+$username="php";
+$password="1234";
+$database="phpPro";
 class Database {
     public $pdo;
 

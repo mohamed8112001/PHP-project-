@@ -1,8 +1,8 @@
 <?php
 $host="localhost";
-$username="mohamed";
-$password="Mohamed@8112001";
-$database="mydatabase";
+$username="php";
+$password="1234";
+$database="phpPro";
 
 
 try {

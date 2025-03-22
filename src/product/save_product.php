@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 if (!in_array($_FILES['product_image']['type'], $allowed_types)) {
                     $error = "Allowed file types: JPEG, PNG, GIF.";
                 } elseif ($_FILES['product_image']['size'] > 2 * 1024 * 1024) {
-                    $error = "حFile size must be less than 2MB";
+                    $error = "File size must be less than 2MB";
                 } else {
                     $image_path = 'Images/' . basename($_FILES['product_image']['name']);
                     if (!move_uploaded_file($_FILES['product_image']['tmp_name'], $image_path)) {

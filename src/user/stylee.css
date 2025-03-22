@@ -15,12 +15,14 @@
 }
 
 body {
+
     font-family: 'Poppins', sans-serif;
     background: linear-gradient(135deg, var(--light) 0%, #e6d9c6 100%);
     color: var(--dark);
     min-height: 100vh;
 }
 
+/* ✅ Page Container */
 .page-container {
     padding: 20px;
     display: flex;
@@ -114,9 +116,17 @@ td {
     color: var(--light);
 }
 
+.update:hover {
+    background-color: #5a3e25;
+}
+
 .delete {
     background-color: var(--error);
     color: white;
+}
+
+.delete:hover {
+    background-color: #c0392b;
 }
 
 .add-user {
@@ -126,11 +136,12 @@ td {
     border-radius: 20px;
     display: inline-block;
     margin-top: 20px;
+    font-size: clamp(14px, 1.5vw, 16px);
+    text-align: center;
 }
 
-.action-buttons a:hover, .add-user:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+.add-user:hover {
+    background-color: #b8860b;
 }
 
 /* ✅ Error Messages */
@@ -141,6 +152,14 @@ td {
     border-radius: 6px;
     text-align: center;
 }
+
+/* ✅ Hover & Focus Effects */
+.action-buttons a:hover,
+.add-user:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
 
 /* ✅ Mobile Styles */
 @media (max-width: 480px) {
@@ -166,3 +185,8 @@ td {
         text-align: center;
     }
 }
+
+
+
+
+

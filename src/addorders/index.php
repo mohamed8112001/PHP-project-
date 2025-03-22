@@ -2,24 +2,22 @@
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
-include_once('../template/nav.php')
-    ?>
+?>
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Make Order</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../temelate/styleTemplate.css">
+    <link rel="stylesheet" href="index.css">
 </head>
+<body>
 
-<body style="background-color:  #FFF8E7;">
-
-
+    <?php include __DIR__ . '/views/layout/header.php'; ?>
+    
     <div class="container py-4">
         <div class="row">
             <div class="col-md-5">
@@ -33,14 +31,12 @@ include_once('../template/nav.php')
 
                         <div class="mt-4">
                             <label class="form-label">Notes</label>
-                            <textarea class="form-control notes-input" name="notes"
-                                rows="3">1 Tea Extra Sugar</textarea>
+                            <textarea class="form-control notes-input" name="notes" rows="3">1 Tea Extra Sugar</textarea>
                         </div>
 
-                        <?php include __DIR__ . '/views/widgets/selectRoom.php'; ?>
+                        <?php include __DIR__ . '/views/widgets/selectRoom.php';  ?>
 
-                        <input type="hidden" name="user_id" id="user_id"
-                            value="<?php echo isset($_SESSION['user_id']) ? $_SESSION['user_id'] : ''; ?>">
+                        <input type="hidden" name="user_id" id="user_id" value="<?php echo isset($_SESSION['user_id']) ? $_SESSION['user_id'] : ''; ?>">
                         <input type="hidden" name="date" value="<?php echo date('Y-m-d H:i:s'); ?>">
                         <input type="hidden" name="status" value="Processing">
 
@@ -57,16 +53,15 @@ include_once('../template/nav.php')
 
             <div class="col-md-7">
                 <?php include __DIR__ . '/views/admin/addToUser.php' ?>
-                <?php include __DIR__ . '/views/widgets/list.php'; ?>
+                <?php include __DIR__ . '/views/widgets/list.php'; ?>                
             </div>
         </div>
-    </div>
+</div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <script src="index.js"></script>
-
+    
 </body>
-
 </html>

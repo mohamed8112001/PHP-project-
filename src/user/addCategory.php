@@ -22,7 +22,6 @@ include_once('../template/nav.php');
 </head>
 <body>
 
-
     <div class="page-container">
     <form action="saveData.php" method="post"  id="registrationForm">
             <div class="form-header">Add New Category</div>
