@@ -72,7 +72,7 @@ try {
     var_dump($result);
 
     if ($result === true) {
-        $verification_link = "http://localhost/php_pro/src/tempphp/Login.html?token=" . $verification_token;
+        $verification_link = "http://localhost/PHP/src/tempphp/Login.html?token=" . $verification_token;
         $subject = "Confirm Your Account";
         $message = "Hello $Username,<br> Click the following link to verify your account:<br> 
                     <a href='$verification_link'>$verification_link</a>";
@@ -81,7 +81,7 @@ try {
         $headers .= "From: no-reply@yourwebsite.com" . "\r\n";
 
         if (SMTP_Config::sendEmail($Email, $Username, $verification_link)) {
-            header("Location: http://localhost/php_pro/src/tempphp/Check_Mail_product.php");
+            header("Location: http://localhost/PHP/src/tempphp/Check_Mail_product.php");
         } else {
             throw new Exception("Failed to send verification email.");
         }

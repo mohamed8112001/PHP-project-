@@ -13,22 +13,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $user = $validation->validateUser($username, $password);
 
     
-
+    session_start(); 
     if ($user) {
         $_SESSION['user_id'] = $user['id'];
         $_SESSION['username'] = $user['Username'];
         $_SESSION['role'] = $user['role'];
+        $_SESSION['image_path'] = $user['image_path'];
+        
 
-        if ($user['role'] === 'admin') {
-            header("Location: http://localhost/php_pro/src/Orders/userOrders.php");
-        } else {
-            header("Location: http://localhost/php_pro/src/addorders/index.php");
+        if ($user['role'] === 'admin' ) {
+            header("Location: http://localhost/PHP/src/Orders/userOrders.php");
+        }else if($user['role'] === 'user') {
+            // header("Location: http://localhost/PHP/src/addorders/index.php");
+            header("Location: http://localhost/PHP/src/Orders/userOrders.php");
         }
         exit();
     } else {
-         echo "<script>alert('The Username or Email is Uncorrect!'); window.location.href='index.php';</script>";
+         echo "<script>alert('The Username and or Email is Uncorrect!'); window.location.href='index.php';</script>";
     }
-} else {
-     header("Location: http://localhost/php_pro/src/user/Home.php");
-    exit();
 }
+//  else {
+//     //  header("Location: http://localhost/PHP/src/user/Home.php");
+//     exit();
+// }

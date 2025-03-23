@@ -1,5 +1,5 @@
 <?php
-// session_start();
+session_start();
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 include_once('blogic.php');
@@ -295,6 +295,7 @@ $blogic = new User();
             <div class="card">
                 <div class="card-header">
                     <h2><i class="fas fa-user-plus"></i> Add New User</h2>
+                    
                 </div>
                 <div class="card-body">
                     <?php

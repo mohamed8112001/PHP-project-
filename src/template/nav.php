@@ -1,9 +1,20 @@
 <?php
-if(!isset($_SESSION['username']) || empty($_SESSION['username'])||  $_SESSION['role']=='user' )  {
-    print_r($_SESSION);
-	header("Location: http://localhost/php_pro/src/user/Home.php ");
-}  
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
+// if($_SESSION['role']==='admin' )  {
+//     // print_r($_SESSION);
+    
+// 	header("Location: http://localhost/PHP/src/Orders/adminOrders.php ");
+// 	// header("Location: ../Orders/userOrders.php ");
+// }  
+if( $_SESSION['role']=='user' )  {
+    // print_r($_SESSION);
+    // !isset($_SESSION['username']) || empty($_SESSION['username'])|| 
+	// header("Location: http://localhost/PHP/src/Orders/userOrders.php ");
+	// header("Location: ../Orders/userOrders.php ");
+}  
 $userId=$_SESSION['user_id'] ;
 ?>
 <!DOCTYPE html>
@@ -37,19 +48,19 @@ $userId=$_SESSION['user_id'] ;
                 <!-- Navigation Links -->
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link " href="http://localhost/php_pro/src/addorders/index.php" data-tooltip="Go to Home"><i class="fas fa-home me-1"></i>Home</a>
+                        <a class="nav-link " href="http://localhost/PHP/src/addorders/index.php" data-tooltip="Go to Home"><i class="fas fa-home me-1"></i>Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="http://localhost/php_pro/src/product/index.php" data-tooltip="View Products"><i class="fas fa-coffee me-1"></i>Products</a>
+                        <a class="nav-link" href="http://localhost/PHP/src/product/index.php" data-tooltip="View Products"><i class="fas fa-coffee me-1"></i>Products</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="http://localhost/php_pro/src/user/All_Users.php" data-tooltip="Manage Users"><i class="fas fa-users me-1"></i>Users</a>
+                        <a class="nav-link" href="http://localhost/PHP/src/user/All_Users.php" data-tooltip="Manage Users"><i class="fas fa-users me-1"></i>Users</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="http://localhost/php_pro/src/Orders/adminOrders.php" data-tooltip="Manual Order Entry"><i class="fas fa-pen me-1"></i>Manual Order</a>
+                        <a class="nav-link" href="http://localhost/PHP/src/Orders/adminOrders.php" data-tooltip="Manual Order Entry"><i class="fas fa-pen me-1"></i>Manual Order</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="http://localhost/php_pro/src/Orders/checks.php" data-tooltip="View Checks"><i class="fas fa-receipt me-1"></i>Checks</a>
+                        <a class="nav-link" href="http://localhost/PHP/src/Orders/checks.php" data-tooltip="View Checks"><i class="fas fa-receipt me-1"></i>Checks</a>
                     </li>
                 </ul>
                 <!-- Right Side: Search and User Dropdown -->

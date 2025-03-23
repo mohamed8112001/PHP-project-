@@ -1,10 +1,10 @@
 <?php
 // session_start();
-if(!isset($_SESSION['username']) || empty($_SESSION['username'])||  $_SESSION['role']=='user' )  {
-    print_r($_SESSION);
+if (!isset($_SESSION['username']) || empty($_SESSION['username']) || $_SESSION['role'] == 'user') {
+    // print_r($_SESSION);
 }
 
-$userId=$_SESSION['user_id'] ;
+$userId = $_SESSION['user_id'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -31,32 +31,41 @@ $userId=$_SESSION['user_id'] ;
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
+                
             </button>
             <!-- Navbar Content -->
             <div class="collapse navbar-collapse" id="navbarNav">
                 <!-- Navigation Links -->
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link " href="../addorders/index.php" data-tooltip="Go to Home"><i class="fas fa-home me-1"></i>Home</a>
+                        <a class="nav-link " href="../addorders/index.php" data-tooltip="Go to Home"><i
+                                class="fas fa-home me-1"></i>Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="../Orders/userOrders.php" data-tooltip="View Products"><i class="fas fa-coffee me-1"></i>My Orders</a>
+                        <a class="nav-link" href="../Orders/userOrders.php" data-tooltip="View Products"><i
+                                class="fas fa-coffee me-1"></i>My Orders</a>
                     </li>
-                 
+                    
+
                 </ul>
                 <!-- Right Side: Search and User Dropdown -->
                 <div class="d-flex align-items-center">
                     <!-- User Dropdown -->
                     <div class="dropdown">
-                       <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
+                        <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
                             id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                             <?php
-                                include_once 'bLogic.php';
-                                $navObj = new Nav();
-                                $user = $navObj->getUserById($userId);      
-                                // echo '<img src="..user/'.$user->image_path.'" class="rounded-circle me-2" alt="User">';
+                            include_once 'bLogic.php';
+                            $navObj = new Nav();
+                            $user = $navObj->getUserById($userId);
+                            // echo '<img src="..user/'.$user->image_path.'" class="rounded-circle me-2" alt="User">';
                             ?>
+                            
                             <span class="username"><?php echo $user["name"]; ?></span>
+                            <img src="favicon.png" alt="User Profile Image" class="user-image">
+                            <!-- <span class="username"><?php echo $user["name"]; ?></span>
+                            <img src="../user/<?php echo $user["image_path"]; ?>" alt="User Profile Image"
+                                class="user-image"> -->
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end shadow-sm">
                             <!-- <li>
@@ -69,15 +78,13 @@ $userId=$_SESSION['user_id'] ;
                                 <hr class="dropdown-divider">
                             </li> -->
                             <li>
-                            <a class="dropdown-item text-danger" href="../user/Home.php">
-                            <i class="fas fa-sign-out-alt me-2"></i>Logout</a>
+                                <a class="dropdown-item text-danger" href="../user/Home.php">
+                                    <i class="fas fa-sign-out-alt me-2"></i>Logout</a>
                             </li>
                         </ul>
                     </div>
                 </div>
             </div>
-            
+
         </div>
     </nav>
-
-    
